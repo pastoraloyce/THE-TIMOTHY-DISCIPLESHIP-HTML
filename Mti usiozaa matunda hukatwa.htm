@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KOZI YA PILI: MTI USIOZAA MATUNDA HUKATWA</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #e67e22;
+            --bg-color: #f4f7f6;
+            --text-color: #333;
+            --white: #ffffff;
+            --secondary-bg: #e8f0fe;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: var(--white);
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-radius: 12px;
+        }
+
+        header {
+            text-align: center;
+            border-bottom: 3px solid var(--accent-color);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            margin: 0;
+            font-size: 1.8rem;
+            text-transform: uppercase;
+        }
+
+        .slogan {
+            font-style: italic;
+            color: var(--accent-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-top: 10px;
+        }
+
+        /* Styles for Accordion (Details/Summary) */
+        details {
+            background-color: var(--white);
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        summary {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 15px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            outline: none;
+            list-style: none; /* Inatoa ile mishale ya asili */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        summary::-webkit-details-marker {
+            display: none;
+        }
+
+        summary::after {
+            content: "➕";
+            font-size: 1rem;
+        }
+
+        details[open] summary::after {
+            content: "➖";
+        }
+
+        details[open] summary {
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        .content-box {
+            padding: 20px;
+            background-color: #fafafa;
+        }
+
+        h3 {
+            color: var(--accent-color);
+            border-left: 4px solid var(--accent-color);
+            padding-left: 10px;
+            margin-top: 20px;
+        }
+
+        .scripture {
+            background: #fff3e0;
+            padding: 15px;
+            border-radius: 5px;
+            font-style: italic;
+            border-left: 5px solid var(--accent-color);
+            margin: 15px 0;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        ul li {
+            margin-bottom: 10px;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        ul li::before {
+            content: "⭐";
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+        }
+
+        .footer {
+            margin-top: 40px;
+            padding: 30px;
+            background: #f9f9f9;
+            border-top: 2px solid #eee;
+            border-radius: 8px;
+        }
+
+        .highlight {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        @media (max-width: 600px) {
+            .container { padding: 15px; }
+            h1 { font-size: 1.3rem; }
+            summary { font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>🌳 KOZI YA PILI: MTI USIOZAA MATUNDA HUKATWA</h1>
+        <div class="slogan">🔥 Kaulimbiu: Commitment and Passion (Kujituma na Shauku)</div>
+    </header>
+
+    <details>
+        <summary>📜 MODULI YA 1: KANUNI YA URITHI WA KIROHO</summary>
+        <div class="content-box">
+            <div class="scripture">
+                <strong>📖 Andiko Kuu: 2 Timotheo 2:2</strong><br>
+                "Na mambo yale uliyoyasikia kwangu mbele ya mashahidi wengi, hayo uwakabidhi watu waaminifu watakaofaa kuwafundisha na wengine."
+            </div>
+            
+            <p><strong>🧐 Uchambuzi wa Moduli:</strong><br>
+            Katika moduli hii, mwanafunzi anajifunza kuwa yeye ni kiungo muhimu katika mnyororo wa Injili. Paulo ni mchungaji wako, wewe ni Timotheo—jukumu lako ni kutafuta wengine.</p>
+            
+            <p><strong>Mambo makuu matano ya kujifunza:</strong></p>
+            <ul>
+                <li><span class="highlight">👂 Mambo yale uliyoyasikia kwangu:</span> Huu ni mchakato wa kuwa mwanafunzi. Lazima uwe na kitu ulichopokea kwa usahihi kabla ya kutoa.</li>
+                <li><span class="highlight">👥 Mbele ya mashahidi wengi:</span> Hii inathibitisha ukweli na uaminifu wa ujumbe; si jambo la siri, ni kweli iliyothibitika.</li>
+                <li><span class="highlight">🤝 Kabidhi (Usikae nayo):</span> Wewe ni wakili, si mmiliki. Ukikaa na neno unazuia mtiririko wa baraka.</li>
+                <li><span class="highlight">💎 Watu waaminifu wanaofaa:</span> Huu ni uteuzi wa kimkakati. Hatutafuti wenye kipaji tu, bali wale wenye tabia ya uaminifu.</li>
+                <li><span class="highlight">🏫 Kufundisha wengine:</span> Hapa ndipo unapoingia kwenye nafasi yako kama mwalimu. Kusudi la kujifunza ni kufundisha.</li>
+            </ul>
+        </div>
+    </details>
+
+    <details>
+        <summary>❓ MODULI YA 2: KWANINI TUKUKABIDHI NA UFUNDISHE?</summary>
+        <div class="content-box">
+            <p>Mwanafunzi wa TTD lazima aelewe msukumo wa kazi hii (The "Why").</p>
+
+            <h3>1. Moyo wa Mungu (Upendo na Sadaka) ❤️</h3>
+            <div class="scripture">
+                <strong>📖 Andiko: Yohana 3:16</strong><br>
+                "Kwa maana jinsi hii Mungu aliupenda ulimwengu, hata akamtoa Mwanawe pekee, ili kila mtu amwaminiye asipotee, bali awe na uzima wa milele."
+            </div>
+            <ul>
+                <li><span class="highlight">Upendo wa Mungu:</span> Ndio injini ya huduma yetu.</li>
+                <li><span class="highlight">Sadaka:</span> Akatoa sadaka ya mtoto wake pekee: Inaonyesha gharama ya ukombozi. TTD inahitaji sadaka na shauku (Passion).</li>
+                <li><span class="highlight">Wokovu:</span> Aaminie asipotee: Kazi yetu ni kuzuia upotevu.</li>
+                <li><span class="highlight">Uzima:</span> Aishi milele pamoja na Mungu: Hili ndilo lengo la mwisho la uanafunzi.</li>
+            </ul>
+
+            <h3>2. Watasikiaje Pasipo Mhubiri? 📢</h3>
+            <div class="scripture">
+                <strong>📖 Andiko: Warumi 10:14</strong><br>
+                "Basi wamwiteje yeye wasiyemwamini? Tena wamwaminije yeye wasiyemsikia? Tena wamsikieje pasipo mhubiri?"
+            </div>
+            <ul>
+                <li><span class="highlight">Hamu:</span> Hamu ya kumwita Yesu: Kuna watu wanatamani kumwita Yesu ila hawajamwamini kwa sababu hawajajua ukweli.</li>
+                <li><span class="highlight">Kiu:</span> Kiu ya kumsikia: Wanataka kumsikia Yesu lakini hakuna wa kumsikizisha.</li>
+                <li><span class="highlight">Wewe:</span> Wewe ni mhubiri: Jukumu lako ni kufundisha neno la Mungu ili kuziba pengo hili.</li>
+            </ul>
+        </div>
+    </details>
+
+    <details>
+        <summary>🌍 MODULI YA 3: AGIZO KUU LA YESU</summary>
+        <div class="content-box">
+            <div class="scripture">
+                <strong>📖 Andiko: Mathayo 28:18-20</strong>
+            </div>
+            <p><strong>Uchambuzi wa Agizo Kuu:</strong><br>
+            Hili ndilo andiko linalofunga Injili ya Mathayo, likijulikana kama "The Great Commission." Ni mwendelezo wa 2 Timotheo 2:2—kufundisha wengine ili ujumbe uendelee vizazi na vizazi.</p>
+            
+            <p><strong>Mambo makuu manne ya utendaji:</strong></p>
+            <ul>
+                <li><span class="highlight">👑 Mamlaka (Mstari wa 18):</span> Yesu anathibitisha mamlaka yake yote. Unafanya kazi chini ya amri ya Mfalme wa wafalme.</li>
+                <li><span class="highlight">🏃‍♂️ Ujumbe (Nendeni):</span> Waumini wanatakiwa kutoka na kwenda kwa mataifa yote. TTD haikai mahali pamoja; inasogea.</li>
+                <li><span class="highlight">🎯 Kazi (Wanafunzi na Ubatizo):</span> Lengo si tu kuhubiri, bali "kufanya wanafunzi" na kuwabatiza katika jina la Utatu Mtakatifu.</li>
+                <li><span class="highlight">🤝 Ahadi (Mstari wa 20):</span> Yesu anaahidi kuwapo kwake daima hata ukamilifu wa dahari. Hauko peke yako.</li>
+            </ul>
+        </div>
+    </details>
+
+    <details>
+        <summary>⚠️ MODULI YA 4: ONYO—USIJE UKAKATWA!</summary>
+        <div class="content-box">
+            <p>Mwanafunzi wa TTD lazima azingatie uaminifu ili kuepuka hukumu ya kutokuzalisha.</p>
+
+            <h3>1. Sheria ya Shoka na Matunda 🪓</h3>
+            <div class="scripture">
+                <strong>📖 Mathayo 3:10:</strong> "Na sasa hivi shoka limekwisha kuwekwa penye mashina ya miti; basi kila mti usiozaa matunda mazuri hukatwa na kutupwa motoni."<br><br>
+                <strong>📖 Mathayo 7:19:</strong> "Kila mti usiozaa tunda zuri hukatwa ukatupwa motoni."
+            </div>
+
+            <h3>2. Hatari ya Kuchukua Nafasi Bure 🛑</h3>
+            <div class="scripture">
+                <strong>📖 Andiko: Luka 13:7-9 (Mfano wa Mtini usiozaa)</strong><br>
+                "Akamwambia mtunza bustani, Tazama, miaka mitatu hii naja nikitafuta matunda juu ya mtini huu nisipate kitu; uukate, mbona hata nchi unaiharibu?"
+            </div>
+
+            <h3>3. Uhusiano wa Shina na Matawi 🌿</h3>
+            <div class="scripture">
+                <strong>📖 Andiko: Yohana 15:2</strong><br>
+                "Kila tawi ndani yangu lisilozaa huliondoa; na kila tawi lizaalo hulisafisha, ili lizidi kuzaa."
+            </div>
+
+            <h3>4. Laana ya Muonekano Bila Matunda 🥀</h3>
+            <div class="scripture">
+                <strong>📖 Andiko: Mathayo 21:19</strong><br>
+                "Akaona mtini mmoja kando ya njia, auendea, asione kitu juu yake ila majani tu; akauambia, Yasipatikane matunda kwako tangu leo hata milele. Mtini ukanyauka mara."
+            </div>
+        </div>
+    </details>
+
+    <div class="footer">
+        <h2>✅ HITIMISHO: TUNAJIFUNZA NINI HAPA?</h2>
+        <p style="text-align: left;">Mwanafunzi wa TTD anapaswa kuondoka na mambo haya moyoni mwake:</p>
+        <ul style="text-align: left;">
+            <li><span class="highlight">⚠️ Shoka lipo sasa hivi:</span> Adhabu ya kutokutekeleza wajibu ipo, si jambo la kusubiri sana.</li>
+            <li><span class="highlight">🍎 Mti usiozaa matunda mazuri hukatwa:</span> Hakuna nafasi ya ukiristo wa jina pekee; matunda ya uanafunzi yanatakiwa.</li>
+            <li><span class="highlight">💧 Mti unaozaa matunda hutunzwa:</span> Mungu anauongezea nguvu na kuusafisha mti unaofanya kazi.</li>
+            <li><span class="highlight">🍇 Yesu anatarajia kuona matunda:</span> Si majani (maneno), bali matunda (watu waliobadilika).</li>
+            <li><span class="highlight">⏳ Muda uliopewa:</span> Mungu amekupa muda huu ili aone matunda mazuri ya uwekezaji wake ndani yako.</li>
+        </ul>
+        <p class="slogan" style="margin-top: 30px; text-align: center;">Je, uko tayari kuwa mwanafunzi wa TTD mwenye Commitment na Passion? 🔥✨</p>
+    </div>
+</div>
+
+</body>
+</html>
