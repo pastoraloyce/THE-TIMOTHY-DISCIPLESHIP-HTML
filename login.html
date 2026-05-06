@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Timothy Discipleship - Login</title>
+
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #ff7a00, #ffb347);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .login-container {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 380px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+  }
+
+  .title { text-align: center; margin-bottom: 20px; }
+  .title h2 { margin: 0; color: #ff7a00; }
+  .input-group { margin-bottom: 15px; }
+  .input-group label { display: block; margin-bottom: 5px; font-weight: bold; }
+  .input-group input { width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #ccc; box-sizing: border-box; }
+  
+  .password-toggle { position: relative; }
+  .password-toggle span { position: absolute; right: 10px; top: 35px; cursor: pointer; font-size: 14px; color: #666; }
+
+  button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    background: #ff7a00;
+    color: white;
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  button:hover { background: #e66a00; }
+  button:disabled { background: #ccc; cursor: not-allowed; }
+
+  .footer { text-align: center; margin-top: 15px; font-size: 14px; }
+  .footer a { color: #ff7a00; text-decoration: none; }
+</style>
+</head>
+
+<body>
+
+<div class="login-container">
+  <div class="title">
+    <h2>The Timothy Discipleship</h2>
+    <p>Ingia kuendelea</p>
+     <p style="font-style: italic;">Na Pastor Aloyce</p>
+  </div>
+
+  <form id="loginForm">
+    <div class="input-group">
+      <label>Email</label>
+      <input type="email" id="email" placeholder="Weka email yako" required>
+    </div>
+
+    <div class="input-group password-toggle">
+      <label>Password</label>
+      <input type="password" id="password" placeholder="Weka password" required>
+      <span onclick="togglePassword()">Show</span>
+    </div>
+
+    <button type="submit" id="loginBtn">Login</button>
+  </form>
+
+  <div class="footer">
+    <p>Pastor Aloyce <br> <a href="#">Disciples Community Church Kisesa Mwanza</a></p>
+  </div>
+</div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
+  import { getAuth, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js";
+  import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCv01cdwWFqeDcvMAkILY3K4G8yKJWwL6k",
+    authDomain: "pastoraloyce-3530f.firebaseapp.com",
+    projectId: "pastoraloyce-3530f",
+    storageBucket: "pastoraloyce-3530f.firebasestorage.app",
+    messagingSenderId: "978341477941",
+    appId: "1:978341477941:web:289e3b0671f00e52907b7c",
+    measurementId: "G-XYK8ZL0JSJ"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  const loginForm = document.getElementById('loginForm');
+  const loginBtn = document.getElementById('loginBtn');
+
+  loginForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
+
+    loginBtn.disabled = true;
+    loginBtn.innerText = "Inahakiki...";
+
+    try {
+      // 1. Authentication
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+
+      // 2. Kagua Firestore
+      const docRef = doc(db, "wanafunzi", user.email);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        const userData = docSnap.data();
+        
+        if (userData.active === true) {
+          // Hifadhi jina ili litumike kule ttdmfumo.html
+          sessionStorage.setItem('mwanafunzi_jina', userData.name || "Mwanafunzi");
+          
+          alert("Karibu " + (userData.name || "Mwanafunzi") + "!");
+          
+          // IMEBADILISHWA: Sasa inaelekea kwenye ttdmfumo.html
+          window.location.href = "ttdmfumo.html"; 
+        } else {
+          alert("Akaunti yako imesitishwa. Wasiliana na Pastor Aloyce.");
+          await signOut(auth);
+          location.reload();
+        }
+      } else {
+        alert("Email hii haijasajiliwa kwenye orodha rasmi.");
+        await signOut(auth);
+        location.reload();
+      }
+
+    } catch (error) {
+      console.error(error);
+      alert("Kuna tatizo! Hakikisha email/password ni sahihi.");
+      loginBtn.disabled = false;
+      loginBtn.innerText = "Login";
+    }
+  });
+</script>
+
+<script>
+  function togglePassword() {
+    const password = document.getElementById("password");
+    const span = document.querySelector(".password-toggle span");
+    if (password.type === "password") {
+      password.type = "text";
+      span.innerText = "Hide";
+    } else {
+      password.type = "password";
+      span.innerText = "Show";
+    }
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="sw" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TTD | The Timothy Discipleship System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brandBlue: '#1e40af',    /* Royal Blue */
+                        brandOrange: '#f97316',  /* Vibrant Orange */
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        
+        .dropdown:hover .dropdown-menu { display: block; animation: fadeIn 0.2s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+        .expandable-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0, 1, 0, 1);
+            opacity: 0;
+        }
+        .active > .expandable-content {
+            max-height: 2000px;
+            opacity: 1;
+            transition: max-height 0.7s ease-in-out, opacity 0.5s ease;
+        }
+
+        .rotate-icon { transition: transform 0.3s ease; }
+        .active > .trigger-area .rotate-icon { transform: rotate(180deg); }
+
+        .timothy-card {
+            border: 2px solid #1e40af;
+            background: #ffffff;
+        }
+        .dark .timothy-card { background: #1e293b; border-color: #3b82f6; }
+        
+        .student-item { border-left: 4px solid #f97316; }
+    </style>
+</head>
+
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100">
+
+    <nav class="fixed w-full z-50 bg-brandBlue text-white shadow-xl px-6 py-4">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="bg-brandOrange p-2 rounded-lg">
+                    <span class="text-white font-black">TTD</span>
+                </div>
+                <span class="font-black text-xl tracking-tighter uppercase">The Timothy</span>
+            </div>
+
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#" class="font-bold hover:text-brandOrange transition-colors text-sm uppercase">Nyumbani</a>
+            
+                <div class="hidden md:flex items-center gap-8">
+                <a href="cgn.html" class="font-bold hover:text-brandOrange transition-colors text-sm uppercase">cgn portal</a>
+                
+                <div class="relative dropdown group">
+                    <button class="flex items-center gap-1 font-bold hover:text-brandOrange transition-colors text-sm uppercase">
+                        Mahudhurio 
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    
+                    <div class="dropdown-menu hidden absolute left-0 w-64 bg-white dark:bg-slate-800 shadow-2xl rounded-xl border border-slate-100 dark:border-slate-700 mt-2 overflow-hidden text-slate-800 dark:text-white">
+                        <div class="p-3 bg-brandOrange/10 border-b border-slate-100 dark:border-slate-700">
+                            <span class="text-[10px] font-black text-brandOrange uppercase">Ripoti za Wiki</span>
+                        </div>
+                        <div class="max-h-40 overflow-y-auto">
+                            <a href="#" class="block px-4 py-2 text-xs font-bold hover:bg-brandBlue hover:text-white border-b">Wiki ya 1 🔗</a>
+                            <a href="#" class="block px-4 py-2 text-xs font-bold hover:bg-brandBlue hover:text-white border-b">Wiki ya 2 🔗</a>
+                            <a href="#" class="block px-4 py-2 text-xs font-bold hover:bg-brandBlue hover:text-white border-b">Wiki ya 3 🔗</a>
+                            <a href="#" class="block px-4 py-2 text-xs font-bold hover:bg-brandBlue hover:text-white border-b">Wiki ya 4 🔗</a>
+                            <a href="#" class="block px-4 py-2 text-xs font-bold hover:bg-brandBlue hover:text-white">Wiki ya 5 🔗</a>
+                        </div>
+                        <div class="p-3 bg-brandBlue/10 border-t border-b border-slate-100 dark:border-slate-700">
+                            <span class="text-[10px] font-black text-brandBlue dark:text-blue-400 uppercase">Ripoti za Mwezi</span>
+                        </div>
+                        <div class="max-h-48 overflow-y-auto">
+                            <script>
+                                const miezi = ["Januari", "Februari", "Machi", "Aprili", "Mei", "Juni", "Julai", "Agosti", "Septemba", "Oktoba", "Novemba", "Desemba"];
+                                miezi.forEach((m, i) => {
+                                    document.write(`<a href="#" class="block px-4 py-2 text-[10px] font-bold hover:bg-brandOrange hover:text-white border-b border-slate-50 uppercase tracking-tight">Mwezi wa ${i+1}: ${m} 🔗</a>`);
+                                });
+                            </script>
+                        </div>
+                    </div>
+                </div>
+                <a href="#" class="font-bold hover:text-brandOrange transition-colors text-sm uppercase">Ripoti Kuu</a>
+            </div>
+
+            <button onclick="document.documentElement.classList.toggle('dark')" class="text-xl">🌓</button>
+        </div>
+    </nav>
+
+    <main class="pt-32 pb-20 px-6 max-w-4xl mx-auto">
+        <header class="mb-10">
+            <h1 class="text-3xl font-black text-brandBlue dark:text-blue-400">Ma Timothy <span class="text-brandOrange uppercase">TTD</span></h1>
+            <p class="text-slate-500 text-sm font-medium">Bofya kadi kuona wanafunzi, kisha bonyeza mwanafunzi kuona maelezo.</p>
+        </header>
+
+        <div id="master-list" class="space-y-6"></div>
+    </main>
+
+    <footer class="bg-brandBlue text-white pt-12 pb-6 px-6">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6 border-b border-white/10 pb-8">
+            <div class="text-center md:text-left">
+                <div class="bg-brandOrange inline-block p-2 rounded-lg mb-2">
+                    <span class="font-black text-xs uppercase">TTD 2026</span>
+                </div>
+                <p class="text-xs font-medium text-blue-100 uppercase tracking-widest">The Timothy Discipleship - Kisesa Mwanza</p>
+            </div>
+            <div class="flex gap-4">
+                <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-brandOrange transition-all">FB</a>
+                <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-brandOrange transition-all">YT</a>
+                <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-brandOrange transition-all">WA</a>
+            </div>
+        </div>
+        <div class="text-center mt-6">
+            <p class="text-[10px] font-bold uppercase tracking-[0.3em] opacity-60 italic">Designed by Pastor Aloyce | Leading with Excellence</p>
+        </div>
+    </footer>
+
+    <script>
+        // SEHEMU YA DATA: Badilisha au ongeza taarifa hapa chini kwa urahisi
+        const timothySystemData = [
+            {
+                name: "Pastor Aloyce",
+                center: "Kisesa Mwanza Center",
+                emoji: "👨🏾‍🏫",
+                students: [
+                    { name: "Baraka Yohana", phone: "+255 712 000 111", status: "Active - Hatua ya 3" },
+                    { name: "Neema Ibrahim", phone: "+255 754 000 222", status: "Active - Hatua ya 1" }
+                ]
+            },
+            {
+                name: "Timothy wa Pili",
+                center: "Nyamagana Center",
+                emoji: "👨🏽‍💼",
+                students: [
+                    { name: "Mwanafunzi A", phone: "+255 711 222 333", status: "Active - Hatua ya 2" },
+                    { name: "Mwanafunzi B", phone: "+255 755 444 555", status: "Active - Hatua ya 4" }
+                ]
+            },
+            {
+                name: "Timothy wa Tatu",
+                center: "Ilemela Center",
+                emoji: "👨🏾‍💼",
+                students: [
+                    { name: "Mwanafunzi C", phone: "+255 622 333 444", status: "Active - Hatua ya 1" }
+                ]
+            },
+            {
+                name: "Timothy wa Nne",
+                center: "Magu Center",
+                emoji: "👩🏾‍💼",
+                students: [
+                    { name: "Mwanafunzi D", phone: "+255 788 555 666", status: "Active - Hatua ya 3" }
+                ]
+            },
+            {
+                name: "Timothy wa Tano",
+                center: "Misungwi Center",
+                emoji: "👨🏼‍💼",
+                students: [
+                    { name: "Mwanafunzi E", phone: "+255 655 777 888", status: "Active - Hatua ya 2" }
+                ]
+            },
+            {
+                name: "Timothy wa Sita",
+                center: "Geita Center",
+                emoji: "👨🏾‍🏫",
+                students: [
+                    { name: "Mwanafunzi F", phone: "+255 744 888 999", status: "Active - Hatua ya 1" }
+                ]
+            },
+            {
+                name: "Timothy wa Saba",
+                center: "Sengerema Center",
+                emoji: "👨🏽‍🏫",
+                students: [
+                    { name: "Mwanafunzi G", phone: "+255 712 999 000", status: "Active - Hatua ya 4" }
+                ]
+            },
+            {
+                name: "Timothy wa Nane",
+                center: "Ukerewe Center",
+                emoji: "👩🏽‍💼",
+                students: [
+                    { name: "Mwanafunzi H", phone: "+255 763 111 222", status: "Active - Hatua ya 2" }
+                ]
+            },
+            {
+                name: "Timothy wa Tisa",
+                center: "Kwimba Center",
+                emoji: "👨🏾‍💼",
+                students: [
+                    { name: "Mwanafunzi I", phone: "+255 672 333 444", status: "Active - Hatua ya 1" }
+                ]
+            },
+            {
+                name: "Timothy wa Kumi",
+                center: "Bariadi Center",
+                emoji: "👨🏼‍🏫",
+                students: [
+                    { name: "Mwanafunzi J", phone: "+255 715 555 666", status: "Active - Hatua ya 3" }
+                ]
+            }
+        ];
+
+        // Kazi ya kutengeneza interface kiotomatiki kutokana na data ya hapo juu
+        function buildTimothySystem() {
+            const container = document.getElementById('master-list');
+            
+            container.innerHTML = timothySystemData.map(timothy => `
+                <div class="timothy-card rounded-3xl overflow-hidden shadow-lg transition-all duration-300">
+                    <div class="trigger-area p-6 flex items-center gap-4 cursor-pointer hover:bg-blue-50 dark:hover:bg-slate-800" onclick="toggleAccordion(this.parentElement)">
+                        <div class="w-16 h-16 bg-brandBlue text-white rounded-2xl flex items-center justify-center text-3xl shadow-lg border-2 border-brandOrange">
+                            ${timothy.emoji}
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="font-black text-xl text-brandBlue dark:text-white uppercase">${timothy.name}</h3>
+                            <p class="text-[10px] font-bold text-brandOrange tracking-widest uppercase">${timothy.center}</p>
+                        </div>
+                        <div class="rotate-icon text-brandBlue dark:text-white">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                    </div>
+
+                    <div class="expandable-content bg-slate-50 dark:bg-slate-900/50">
+                        <div class="p-6 space-y-3">
+                            ${timothy.students.map(student => `
+                                <div class="student-item bg-white dark:bg-slate-800 rounded-xl overflow-hidden shadow-sm">
+                                    <div class="trigger-area p-4 flex justify-between items-center cursor-pointer hover:bg-orange-50 dark:hover:bg-slate-700" onclick="toggleAccordion(this.parentElement); event.stopPropagation();">
+                                        <span class="font-black text-sm text-brandBlue dark:text-white uppercase">${student.name} 👤</span>
+                                        <div class="rotate-icon text-brandOrange">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7"></path></svg>
+                                        </div>
+                                    </div>
+                                    <div class="expandable-content p-4 bg-blue-50 dark:bg-brandBlue/20 grid grid-cols-2 gap-4">
+                                        <div>
+                                            <p class="text-[9px] font-black text-brandOrange uppercase">Mawasiliano</p>
+                                            <p class="font-mono text-xs font-bold">${student.phone}</p>
+                                        </div>
+                                        <div>
+                                            <p class="text-[9px] font-black text-brandOrange uppercase">Hali ya Mwanafunzi</p>
+                                            <p class="text-xs font-bold uppercase">${student.status}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function toggleAccordion(element) {
+            element.classList.toggle('active');
+        }
+
+        // Run mfumo
+        buildTimothySystem();
+    </script>
+</body>
+</html>

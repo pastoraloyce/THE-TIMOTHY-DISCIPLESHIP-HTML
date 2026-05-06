@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="sw" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TTD | CGN Portal Details</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brandBlue: '#1e40af',    
+                        brandOrange: '#f97316',  
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .expandable-content { max-height: 0; overflow: hidden; transition: all 0.5s ease-in-out; opacity: 0; }
+        .active > .expandable-content { max-height: 3000px; opacity: 1; padding-bottom: 20px; }
+        .rotate-icon { transition: transform 0.3s ease; }
+        .active > .trigger-area .rotate-icon { transform: rotate(180deg); }
+        .cgn-card { border: 2px solid #1e40af; background: #ffffff; border-radius: 1.5rem; overflow: hidden; }
+        .dark .cgn-card { background: #1e293b; border-color: #3b82f6; }
+        .student-detail-card { border-left: 4px solid #f97316; }
+        
+        /* Mobile Menu Animation */
+        #mobile-menu { transition: transform 0.3s ease-in-out; }
+        .menu-open #mobile-menu { transform: translateX(0); }
+    </style>
+</head>
+
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100">
+
+    <nav class="fixed w-full z-50 bg-brandBlue text-white shadow-xl px-6 py-4">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="bg-brandOrange p-2 rounded-lg">
+                    <span class="text-white font-black text-sm">TTD</span>
+                </div>
+                <span class="font-black tracking-tighter uppercase text-lg">CGN NETWORK</span>
+            </div>
+
+            <div class="hidden md:flex items-center gap-6 text-xs font-bold uppercase">
+                <a href="#" class="hover:text-brandOrange transition">Nyumbani</a>
+                <a href="#" class="hover:text-brandOrange transition">Masomo</a>
+                <a href="#" class="hover:text-brandOrange transition">Ripoti</a>
+                <a href="#" class="hover:text-brandOrange transition text-brandOrange">Portal</a>
+                <button onclick="document.documentElement.classList.toggle('dark')" class="text-lg ml-4">🌓</button>
+            </div>
+
+            <div class="md:hidden flex items-center gap-4">
+                <button onclick="document.documentElement.classList.toggle('dark')" class="text-lg">🌓</button>
+                <button id="menu-btn" class="text-2xl focus:outline-none">☰</button>
+            </div>
+        </div>
+
+        <div id="mobile-overlay" class="hidden fixed inset-0 bg-black/50 z-40" onclick="toggleMenu()"></div>
+        <div id="mobile-menu" class="fixed top-0 right-0 h-full w-64 bg-brandBlue z-50 translate-x-full p-8 shadow-2xl">
+            <button onclick="toggleMenu()" class="absolute top-4 right-4 text-2xl">✕</button>
+            <div class="flex flex-col gap-6 mt-12 text-sm font-bold uppercase">
+                <a href="#" onclick="toggleMenu()">Nyumbani</a>
+                <a href="#" onclick="toggleMenu()">Masomo</a>
+                <a href="#" onclick="toggleMenu()">Ripoti</a>
+                <a href="#" class="text-brandOrange" onclick="toggleMenu()">Portal</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="pt-32 pb-20 px-6 max-w-4xl mx-auto min-h-screen">
+        <header class="mb-10 bg-white dark:bg-slate-800 p-6 rounded-3xl border-2 border-brandOrange shadow-lg">
+            <h1 class="text-2xl font-black text-brandBlue dark:text-blue-400 uppercase">
+                Msimamizi: <span id="userName" class="text-brandOrange">Pastor Aloyce</span>
+            </h1>
+            <p class="text-[10px] font-bold opacity-60 uppercase mt-2 tracking-widest">Mfumo wa Kuripoti Church Group Network</p>
+        </header>
+
+        <section id="cgn-list" class="space-y-6"></section>
+    </main>
+
+    <footer class="bg-brandBlue text-white pt-16 pb-8 px-6 mt-20">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 border-b border-white/10 pb-12">
+                <div class="space-y-4">
+                    <div class="flex items-center gap-2">
+                        <div class="bg-brandOrange p-1.5 rounded shadow-lg">
+                            <span class="font-black text-xs">TTD</span>
+                        </div>
+                        <span class="font-bold text-xl uppercase tracking-tighter">The Timothy</span>
+                    </div>
+                    <p class="text-xs text-blue-100 leading-relaxed opacity-70">
+                        Tunajenga mfumo wa uanafunzi wenye matokeo, tukiongozwa na ubora na nidhamu ya kiroho.
+                    </p>
+                </div>
+
+                <div class="space-y-4">
+                    <h4 class="font-black text-brandOrange uppercase text-sm">Wasiliana Nasi</h4>
+                    <div class="space-y-3">
+                        <a href="https://wa.me/255757344860" target="_blank" class="flex items-center gap-3 group">
+                            <span class="bg-white/10 p-2 rounded-full group-hover:bg-green-500 transition">💬</span>
+                            <span class="text-xs font-bold">WhatsApp: 0757 344 860</span>
+                        </a>
+                        <div class="flex items-center gap-3">
+                            <span class="bg-white/10 p-2 rounded-full">📍</span>
+                            <span class="text-xs font-bold">Kisesa, Mwanza - Tanzania</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <h4 class="font-black text-brandOrange uppercase text-sm">Tufuate Mtandaoni</h4>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center hover:bg-blue-600 transition shadow-lg" title="Facebook">FB</a>
+                        <a href="#" class="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center hover:bg-red-600 transition shadow-lg" title="YouTube">YT</a>
+                        <a href="https://wa.me/255757344860" class="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center hover:bg-green-600 transition shadow-lg" title="WhatsApp">WA</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-8 space-y-2">
+                <p class="text-[10px] font-bold uppercase tracking-[0.4em] opacity-40 italic">Leading with Excellence</p>
+                <p class="text-[9px] opacity-60">© 2026 TTD System | Designed by <span class="text-brandOrange">Pastor Aloyce</span></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Data ya CGN
+        const cgnData = [
+            {
+                center: "Kituo kwa Mama Bhoke",
+                leaders: "Mama Bhoke na Bro Lazaro",
+                emoji: "🏠",
+                students: Array.from({length: 12}, (_, i) => ({ 
+                    name: `Mwana CGN ${i+1}`, 
+                    phone: `0712-000-10${i+1}`, 
+                    gender: i % 2 === 0 ? "Mme" : "Mke",
+                    status: "Kimasomo" 
+                }))
+            },
+            {
+                center: "Kituo kwa Mama Gift",
+                leaders: "Mama Gift na Bro Michael",
+                emoji: "🌸",
+                students: Array.from({length: 12}, (_, i) => ({ 
+                    name: `Mwana CGN ${i+1}`, 
+                    phone: `0754-000-20${i+1}`, 
+                    gender: i % 2 === 0 ? "Mme" : "Mke",
+                    status: "Kimasomo" 
+                }))
+            },
+            {
+                center: "Kituo cha Kanisa",
+                leaders: "Mama Martina na Madam Aponya",
+                emoji: "⛪",
+                students: Array.from({length: 12}, (_, i) => ({ 
+                    name: `Mwana CGN ${i+1}`, 
+                    phone: `0788-000-30${i+1}`, 
+                    gender: i % 2 === 0 ? "Mme" : "Mke",
+                    status: "Kimasomo" 
+                }))
+            },
+            {
+                center: "Kituo cha Online",
+                leaders: "Bro Msukuma",
+                emoji: "🌐",
+                students: Array.from({length: 12}, (_, i) => ({ 
+                    name: `Mwana CGN ${i+1}`, 
+                    phone: `WhatsApp Link`, 
+                    gender: i % 2 === 0 ? "Mme" : "Mke",
+                    status: "Kimasomo" 
+                }))
+            }
+        ];
+
+        // Mobile Menu Logic
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const overlay = document.getElementById('mobile-overlay');
+
+        function toggleMenu() {
+            document.body.classList.toggle('menu-open');
+            mobileMenu.classList.toggle('translate-x-full');
+            overlay.classList.toggle('hidden');
+        }
+
+        menuBtn.addEventListener('click', toggleMenu);
+
+        function buildCGN() {
+            const container = document.getElementById('cgn-list');
+            container.innerHTML = cgnData.map(group => `
+                <div class="cgn-card shadow-lg">
+                    <div class="trigger-area p-6 flex items-center gap-4 cursor-pointer hover:bg-orange-50 dark:hover:bg-slate-800" onclick="toggleAccordion(this.parentElement)">
+                        <div class="text-3xl bg-brandBlue/10 p-3 rounded-2xl">${group.emoji}</div>
+                        <div class="flex-1">
+                            <h3 class="font-black text-lg text-brandBlue dark:text-white uppercase leading-tight">${group.center}</h3>
+                            <p class="text-[10px] font-bold text-brandOrange tracking-widest uppercase">Viongozi: ${group.leaders}</p>
+                        </div>
+                        <div class="rotate-icon text-brandBlue font-bold">🔽</div>
+                    </div>
+                    
+                    <div class="expandable-content bg-slate-100/50 dark:bg-slate-900/50 px-4 md:px-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                            ${group.students.map(s => `
+                                <div class="student-detail-card bg-white dark:bg-slate-800 p-4 rounded-xl shadow-sm">
+                                    <div class="flex justify-between items-start mb-2">
+                                        <h4 class="font-black text-sm text-brandBlue dark:text-blue-300 uppercase">${s.name}</h4>
+                                        <span class="text-[9px] bg-green-100 text-green-700 px-2 py-0.5 rounded font-bold uppercase">Active</span>
+                                    </div>
+                                    <div class="grid grid-cols-3 gap-2">
+                                        <div>
+                                            <p class="text-[8px] font-bold opacity-50 uppercase italic">Simu</p>
+                                            <p class="text-[10px] font-bold text-slate-700 dark:text-slate-300">${s.phone}</p>
+                                        </div>
+                                        <div>
+                                            <p class="text-[8px] font-bold opacity-50 uppercase italic">Jinsi</p>
+                                            <p class="text-[10px] font-bold text-slate-700 dark:text-slate-300">${s.gender}</p>
+                                        </div>
+                                        <div>
+                                            <p class="text-[8px] font-bold opacity-50 uppercase italic">Hali</p>
+                                            <p class="text-[10px] font-bold text-slate-700 dark:text-slate-300">${s.status}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function toggleAccordion(el) { el.classList.toggle('active'); }
+        buildCGN();
+    </script>
+</body>
+</html>
