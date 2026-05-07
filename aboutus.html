@@ -30,9 +30,18 @@
             background-color: #1e40af;
             background-image: url("https://www.transparenttextures.com/patterns/cubes.png");
         }
-        /* Mobile menu adjustment */
-        @media (max-width: 768px) {
-            .nav-links { display: none; }
+        
+        /* Mobile menu logic */
+        #mobile-menu.hidden {
+            display: none;
+        }
+        #mobile-menu {
+            display: flex;
+            animation: slideDown 0.3s ease-out;
+        }
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
@@ -54,9 +63,19 @@
                 <a href="#" class="font-bold hover:text-brandOrange transition-colors text-sm uppercase">Mahudhurio</a>
             </div>
 
-            <div class="flex items-center gap-4">
+            <div class="flex items-center gap-2 md:gap-4">
                 <button onclick="document.documentElement.classList.toggle('dark')" class="text-xl p-2 hover:bg-white/10 rounded-full transition-all">🌓</button>
+                
+                <button onclick="toggleMenu()" class="md:hidden p-2 text-white focus:outline-none">
+                    <svg id="menu-icon" class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
             </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden flex-col bg-brandBlue border-t border-white/10 mt-4 pb-4 space-y-4">
+            <a href="index.html" class="px-2 py-2 font-bold hover:text-brandOrange transition-colors text-sm uppercase border-b border-white/5">Nyumbani</a>
+            <a href="#" class="px-2 py-2 font-bold text-brandOrange transition-colors text-sm uppercase border-b border-white/5">Kuhusu Sisi</a>
+            <a href="#" class="px-2 py-2 font-bold hover:text-brandOrange transition-colors text-sm uppercase">Mahudhurio</a>
         </div>
     </nav>
 
@@ -158,13 +177,19 @@
     </footer>
 
     <script>
+        // Kazi ya kukuza maandishi
         let currentSize = 16;
         function changeFontSize(delta) {
             currentSize += delta;
-            // Limit between 12px and 24px for accessibility
             if(currentSize < 12) currentSize = 12;
             if(currentSize > 24) currentSize = 24;
             document.body.style.fontSize = currentSize + 'px';
+        }
+
+        // Kazi ya kufungua/kufunga menu kwenye simu
+        function toggleMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
         }
     </script>
 
