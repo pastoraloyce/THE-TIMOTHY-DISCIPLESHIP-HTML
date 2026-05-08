@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="sw" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduli ya 2: Sanaa ya Maongezi ya Urejesho</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Merriweather:wght@400;700&family=Fira+Code&family=EB+Garamond:wght@400;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        darkBg: '#0f172a', // Deep Blue
+                        darkCard: '#1e293b',
+                        accentBlue: '#3b82f6',
+                        accentOrange: '#f97316',
+                        softCyan: '#22d3ee',
+                        softTeal: '#14b8a6',
+                        offWhite: '#f8fafc',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .progress-container { width: 100%; height: 5px; background: transparent; position: fixed; top: 0; z-index: 100; }
+        .progress-bar { height: 5px; background: #f97316; width: 0%; transition: width 0.1s; }
+        
+        .font-serif-custom { font-family: 'EB Garamond', serif; }
+        .font-sans-custom { font-family: 'Inter', sans-serif; }
+        .font-tnr-custom { font-family: 'Times New Roman', Times, serif; }
+        .font-mono-custom { font-family: 'Fira Code', monospace; }
+
+        .qa-card.locked { opacity: 0.5; pointer-events: none; filter: grayscale(1); }
+        article { transition: font-size 0.2s ease; }
+        html { scroll-behavior: smooth; }
+    </style>
+</head>
+<body class="bg-offWhite dark:bg-darkBg text-slate-800 dark:text-slate-200 transition-colors duration-500">
+
+    <div class="progress-container">
+        <div class="progress-bar" id="readingProgress"></div>
+    </div>
+
+    <nav class="fixed bottom-6 right-6 flex flex-col gap-3 z-50">
+        <button onclick="toggleDarkMode()" class="p-4 bg-accentBlue text-white rounded-full shadow-lg hover:scale-110 transition-transform" title="Badili Mode">
+            <i id="theme-icon" class="fas fa-moon"></i>
+        </button>
+        
+        <div class="relative group">
+            <button class="p-4 bg-accentOrange text-white rounded-full shadow-lg">
+                <i class="fas fa-font"></i>
+            </button>
+            <div class="absolute bottom-16 right-0 bg-white dark:bg-darkCard p-2 rounded-xl shadow-2xl border border-slate-200 dark:border-slate-700 hidden group-hover:block w-48">
+                <button onclick="changeFont('font-serif-custom')" class="w-full text-left p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded font-serif-custom">Serif</button>
+                <button onclick="changeFont('font-sans-custom')" class="w-full text-left p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded font-sans-custom">Sans-Serif</button>
+                <button onclick="changeFont('font-tnr-custom')" class="w-full text-left p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded font-tnr-custom">Times New Roman</button>
+                <button onclick="changeFont('font-mono-custom')" class="w-full text-left p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded font-mono-custom">Monospace</button>
+            </div>
+        </div>
+
+        <div class="flex flex-col gap-2 bg-white dark:bg-darkCard p-2 rounded-full shadow-lg border border-slate-200 dark:border-slate-700 text-center">
+            <button onclick="resizeText(1)" class="p-2 text-accentBlue font-bold">A+</button>
+            <button onclick="resizeText(-1)" class="p-2 text-accentOrange font-bold">A-</button>
+        </div>
+    </nav>
+
+    <main class="max-w-4xl mx-auto px-4 pt-16 pb-24">
+        
+        <header class="text-center mb-16">
+            <div class="mb-4 inline-block px-4 py-1 rounded-full bg-accentBlue/10 text-accentBlue font-semibold text-sm">
+                KOZI: NAMNA YA KUMSAIDIA MTU ALIYEPOTEZA SHAUKU
+            </div>
+            <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+                Moduli ya 2: Sanaa ya Maongezi ya Urejesho – Kutengeneza Mazingira ya Uwazi ✨
+            </h1>
+            
+            <div class="flex flex-col items-center gap-2 mb-8">
+                <p class="font-bold text-lg">Mwandishi: Pastor Aloyce</p>
+                <p id="todayDate" class="text-slate-500 italic"></p>
+            </div>
+
+            <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&q=80&w=1200" alt="Conversation" class="w-full h-[400px] object-cover rounded-[2rem] shadow-2xl mb-12 border-4 border-white dark:border-slate-800">
+        </header>
+
+        <article id="mainArticle" class="font-sans-custom text-xl leading-relaxed space-y-8 text-justify">
+            <h2 class="text-3xl font-bold text-accentBlue">Utangulizi: Zaidi ya Maneno, Ni Mguso 🤝</h2>
+            <p>
+                Unapokaribia mtu aliyepoteza shauku, unakaribia "ardhi takatifu" ya maumivu na kuchoka kwake. Kosa kubwa ambalo wasaidizi wengi hulifanya ni kuanza na mahubiri (preaching) badala ya uwepo (presence). Katika moduli hii, tutajifunza jinsi ya kufungua mlango wa moyo wa mtu ambaye amejifungia ndani ya kuta za ubaridi wa kiroho. Tutajifunza kuwa neno sahihi linalosemwa kwa wakati sahihi ni kama "tofaa za dhahabu kwenye chano cha fedha."
+            </p>
+
+            <div class="bg-darkCard text-white p-8 rounded-3xl my-10 border-l-8 border-accentOrange shadow-xl">
+                <h3 class="text-2xl font-bold mb-4 text-accentOrange">Lengo la Moduli 🎯</h3>
+                <p>Kumpatia msaidizi mbinu za kimkakati na za kiroho za kuanzisha mazungumzo, kujenga uaminifu, na kutambua mahali ambapo moyo wa mtu mwingine "ulipotezea mwelekeo."</p>
+            </div>
+
+            <h2 class="text-3xl font-bold text-accentBlue">1. Hatua za Kuanza: Ukaribu Kabla ya Maelekezo</h2>
+            <p>
+                Kabla ya kuanza kuzungumza juu ya Mungu, lazima uonyeshe kuwa unamjali huyo mtu. Mtu aliyepoteza shauku mara nyingi anajihisi mwenye hatia (guilty), hivyo akikuona unakuja na Biblia, anaweza "kujihami" (defensive).
+            </p>
+            <ul class="list-none space-y-4">
+                <li class="flex gap-3"><i class="fas fa-check-circle text-softTeal mt-1"></i> <b>Sikiliza kwa Masikio ya Moyo:</b> Ruhusu mtu azungumze bila kumkatiza. Wakati mwingine, shauku hurejea pale mtu anapohisi ameeleweka.</li>
+                <li class="flex gap-3"><i class="fas fa-check-circle text-softTeal mt-1"></i> <b>Tumia Maswali ya Wazi:</b> Badala ya kuuliza, "Kwa nini huombi?", uliza, "Nimekuwa nikifikiria juu yako, hivi karibuni umekuwa ukijisikiaje ndani ya moyo wako?"</li>
+            </ul>
+
+            <blockquote class="border-l-4 border-softCyan bg-softCyan/5 p-6 italic rounded-r-xl">
+                "Watu hawajali unajua kiasi gani mpaka wajue unawajali kiasi gani. Upendo ndio ufunguo pekee unaoweza kufungua moyo uliopigwa kufuli na mashaka." <br>— <b>Dr. Rick Warren</b>
+            </blockquote>
+
+            <h2 class="text-3xl font-bold text-accentBlue">2. Kutambua "Mahali pa Kuanguka"</h2>
+            <p>
+                Kila ukame wa kiroho una mwanzo wake. Ni lazima msaidizi awe na hekima ya kutambua kama tatizo ni dhambi iliyofichwa, jeraha la kihisia, au uchovu wa mwili na akili.
+            </p>
+            <div class="p-6 bg-slate-100 dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700">
+                <p class="font-bold text-accentOrange mb-2">Ufunuo 2:5 (SUV):</p>
+                <p class="italic">"Basi, kumbuka ni wapi ulikozuka; ukatubu, ukayafanye matendo ya kwanza..."</p>
+            </div>
+            <p><b>Ufafanuzi wa Kiroho:</b> Huwezi kurejea kama hujui ulipoachia njia. Katika moduli hii, tunajifunza kumsaidia mtu "kukumbuka" wakati ambapo mara ya mwisho alihisi uwepo wa Mungu, na ni nini kilitokea katikati.</p>
+
+            <h2 class="text-3xl font-bold text-accentBlue">3. Nguvu ya Ushuhuda Wako (Vulnerability)</h2>
+            <p>Msaidie mtu huyo kujua kuwa yeye si wa kwanza kupitia hapo. Unaposhiriki nyakati ambazo wewe mwenye ulisikia ukame, unavunja ukuta wa "ujitakatifu wa bandia."</p>
+            <div class="p-6 bg-slate-100 dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700">
+                <p class="font-bold text-accentOrange mb-2">Yakobo 5:16 (Neno Contemporary Bible):</p>
+                <p class="italic">"Kwa hiyo ungameni dhambi zenu ninyi kwa ninyi na kuombeana ili mpate kuponywa..."</p>
+            </div>
+            
+            <h3 class="text-2xl font-bold mt-8">Maandiko ya Msingi kwa Tafakari</h3>
+            <ol class="list-decimal list-inside space-y-4">
+                <li><b>Mithali 20:5 (BHN):</b> "Nia ya moyo wa mtu ni kama maji marefu, lakini mwenye busara atayachota."</li>
+                <li><b>Luka 24:32 (SUV):</b> "Je! Mioyo yetu haikuwaka ndani yetu alipokuwa akisema nasi njiani, na kutufunulia maandiko?"</li>
+            </ol>
+
+            <p class="mt-8 p-6 bg-accentBlue/5 rounded-2xl border-2 border-dashed border-accentBlue italic">
+                Fikiria juu ya mazungumzo yako ya mwisho na mtu aliyekata tamaa. Je, ulikuwa unaharakisha kutoa majibu kabla ya kuelewa swali la moyo wake? Kumbuka, Mungu hadai matokeo ya haraka; anatafuta uaminifu katika mchakato wa kurejesha.
+            </p>
+        </article>
+
+        <hr class="my-20 border-slate-200 dark:border-slate-800">
+
+        <section class="space-y-16">
+            <h2 class="text-4xl font-bold text-center">Tafakuri na Shughuli 📝</h2>
+            
+            <div class="space-y-6">
+                <div class="p-8 bg-white dark:bg-darkCard rounded-3xl shadow-xl border border-slate-100 dark:border-slate-800">
+                    <h3 class="text-xl font-bold mb-4 flex items-center gap-2 text-accentBlue"><i class="fas fa-brain"></i> Tafakuri Yako</h3>
+                    <p class="text-sm mb-2 opacity-70">1. Mambo uliyobaini na kutafakari (Unaweza kusave na kuedit hapa):</p>
+                    <textarea id="tafakuri_1" class="w-full p-4 rounded-xl bg-slate-50 dark:bg-slate-900 border-none h-32"></textarea>
+                    
+                    <p class="text-sm mt-4 mb-2 opacity-70">2. Kaa kwenye makundi (Rekodi majadiliano yenu):</p>
+                    <textarea id="tafakuri_2" class="w-full p-4 rounded-xl bg-slate-50 dark:bg-slate-900 border-none h-32"></textarea>
+
+                    <p class="text-sm mt-4 mb-2 opacity-70">3. Mambo uliyojifunza kutoka kwa wenzako:</p>
+                    <textarea id="tafakuri_3" class="w-full p-4 rounded-xl bg-slate-50 dark:bg-slate-900 border-none h-32"></textarea>
+                    
+                    <button onclick="saveData('tafakuri')" class="mt-4 px-8 py-3 bg-accentBlue text-white rounded-full font-bold hover:shadow-lg transition">Hifadhi Tafakuri</button>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="p-8 bg-softTeal/10 rounded-3xl border border-softTeal/20">
+                        <h3 class="font-bold mb-2">Shughuli ya 1: Shirikisha</h3>
+                        <p class="text-xs mb-3 italic">"Nimekuweka uwe nuru ya Mataifa, Ili uwe wokovu hata miisho ya nchi." - Matendo 13:47 (SUV)</p>
+                        <textarea id="shughuli_1" class="w-full bg-white dark:bg-slate-900 p-3 rounded-lg border-none" placeholder="Utawaambia nini marafiki?"></textarea>
+                    </div>
+                    <div class="p-8 bg-softCyan/10 rounded-3xl border border-softCyan/20">
+                        <h3 class="font-bold mb-2">Shughuli ya 2: Majina</h3>
+                        <p class="text-xs mb-3 italic">"Nao wakashinda kwa damu ya Mwana-Kondoo, na kwa neno la ushuhuda wao." - Ufunuo 12:11 (SUV)</p>
+                        <textarea id="shughuli_2" class="w-full bg-white dark:bg-slate-900 p-3 rounded-lg border-none" placeholder="Andika majina hapa..."></textarea>
+                    </div>
+                    <button onclick="saveData('shughuli')" class="md:col-span-2 py-3 bg-softTeal text-white rounded-xl font-bold">Hifadhi Mipango</button>
+                </div>
+
+                <div class="p-8 bg-accentOrange/5 rounded-3xl border-2 border-accentOrange/20">
+                    <h3 class="text-2xl font-bold mb-6 text-accentOrange italic">Lengo la Mabadiliko ya Ufalme 👑</h3>
+                    <div class="space-y-6">
+                        <div>
+                            <label class="block font-bold">Badiliko Langu:</label>
+                            <p class="text-xs mb-2 opacity-70">"Nami nitawapa ninyi moyo mpya, nami nitatia roho mpya ndani yenu." - Ezekieli 36:26 (SUV)</p>
+                            <textarea id="badiliko_langu" class="w-full bg-white dark:bg-slate-900 p-3 rounded-lg border-none"></textarea>
+                        </div>
+                        <div>
+                            <label class="block font-bold">Badiliko la Rafiki yangu:</label>
+                            <p class="text-xs mb-2 opacity-70">"Lakini nimekuombea wewe ili imani yako isitindike." - Luka 22:32 (SUV)</p>
+                            <textarea id="badiliko_rafiki" class="w-full bg-white dark:bg-slate-900 p-3 rounded-lg border-none"></textarea>
+                        </div>
+                        <button onclick="saveData('mabadiliko')" class="w-full py-4 bg-accentOrange text-white rounded-xl font-bold">Hifadhi Mabadiliko</button>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="p-8 bg-slate-800 text-white rounded-3xl shadow-xl">
+                        <h3 class="font-bold mb-2 text-softCyan">Maombi ya Neema 🙏</h3>
+                        <p class="text-[10px] mb-3 opacity-60 italic">"Basi na tukikaribie kiti cha neema kwa ujasiri, ili tupewe rehema, na kupata neema." - Waebrania 4:16 (SUV)</p>
+                        <textarea id="ombi_neema" class="w-full bg-white/10 p-3 rounded-lg border-none text-white h-24"></textarea>
+                    </div>
+                    <div class="p-8 bg-slate-800 text-white rounded-3xl shadow-xl">
+                        <h3 class="font-bold mb-2 text-accentOrange">Ombea Rafiki 🙌</h3>
+                        <p class="text-[10px] mb-3 opacity-60 italic">"Mkiombeana, mpate kuponywa. Kuomba kwake mwenye haki kwafaa sana." - Yakobo 5:16 (SUV)</p>
+                        <textarea id="ombi_rafiki" class="w-full bg-white/10 p-3 rounded-lg border-none text-white h-24"></textarea>
+                    </div>
+                    <button onclick="saveData('maombi')" class="md:col-span-2 py-3 bg-slate-700 text-white rounded-xl font-bold">Hifadhi Maombi</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="qa-section" class="mt-24 space-y-12">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-4">Maswali na Majibu ❓</h2>
+                <div id="quiz-progress" class="text-xl font-bold text-accentBlue">
+                    Maendeleo: <span id="answered-count">0</span>/10 (<span id="percentage">0</span>%)
+                </div>
+            </div>
+
+            <div id="qa-container" class="space-y-6">
+                </div>
+        </section>
+
+        <section class="mt-32 p-12 bg-gradient-to-br from-accentBlue to-accentOrange rounded-[3rem] text-white text-center shadow-2xl">
+            <h2 class="text-3xl font-bold mb-6">Endelea na Safari ya Mafunzo</h2>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="#" class="px-8 py-3 bg-white text-accentBlue font-bold rounded-full hover:scale-105 transition">Moduli ya 3: Siri ya Urejesho</a>
+                <a href="#" class="px-8 py-3 bg-white/20 text-white font-bold rounded-full backdrop-blur hover:bg-white/30 transition">Moduli ya 4: Kukaa Katika Neno</a>
+            </div>
+        </section>
+
+        <footer class="mt-20 border-t border-slate-200 dark:border-slate-800 pt-12 text-center">
+            <div class="max-w-2xl mx-auto italic opacity-80 mb-8 px-6">
+                "Bwana Yesu, nifundishe lugha ya faraja. Nipe masikio ya kusikia yale ambayo hayajasemwa, na nipe moyo wa subira. Nisaidie nisiwe msumbufu kwa yule anayepita jangwani, bali niwe mto wa maji baridi kupitia maneno yangu na utulivu wangu. Amina."
+            </div>
+            <p class="font-bold text-accentOrange text-lg">&copy; 2026 Pastor Aloyce - Badiliko la Kiroho 🕊️</p>
+        </footer>
+
+    </main>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+
+    <script>
+        // 1. Firebase Setup
+        const firebaseConfig = {
+            apiKey: "AIzaSyCv01cdwWFqeDcvMAkILY3K4G8yKJWwL6k",
+            authDomain: "pastoraloyce-3530f.firebaseapp.com",
+            projectId: "pastoraloyce-3530f",
+            storageBucket: "pastoraloyce-3530f.firebasestorage.app",
+            messagingSenderId: "978341477941",
+            appId: "1:978341477941:web:289e3b0671f00e52907b7c",
+            measurementId: "G-XYK8ZL0JSJ"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        const COLLECTION_NAME = "mafunzo";
+        const USER_ID = "mtumiaji_mmoja"; // Hii inaweza kuwa dynamic kulingana na login
+
+        // 2. Features Implementation
+        let currentFontSize = 20;
+
+        function toggleDarkMode() {
+            const html = document.documentElement;
+            const icon = document.getElementById('theme-icon');
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                icon.className = 'fas fa-moon';
+                localStorage.theme = 'light';
+            } else {
+                html.classList.add('dark');
+                icon.className = 'fas fa-sun';
+                localStorage.theme = 'dark';
+            }
+        }
+
+        function changeFont(fontClass) {
+            const article = document.getElementById('mainArticle');
+            article.className = `${fontClass} text-xl leading-relaxed space-y-8 text-justify transition-all`;
+        }
+
+        function resizeText(delta) {
+            currentFontSize += delta * 2;
+            document.getElementById('mainArticle').style.fontSize = `${currentFontSize}px`;
+        }
+
+        window.onscroll = function() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (winScroll / height) * 100;
+            document.getElementById("readingProgress").style.width = scrolled + "%";
+        };
+
+        // 3. Questions Data
+        const quizData = [
+            { q: "Kosa kubwa ambalo wasaidizi hufanya ni nini?", a: "Kuanza na mahubiri (preaching) badala ya uwepo (presence)." },
+            { q: "Nini ufunguo pekee wa kufungua moyo uliopigwa kufuli na mashaka?", a: "Upendo (kama Dr. Rick Warren alivyosema)." },
+            { q: "Badala ya kuuliza 'Kwa nini huombi?', uliza nini?", a: "'Nimekuwa nikifikiria juu yako, hivi karibuni umekuwa ukijisikiaje ndani ya moyo wako?'" },
+            { q: "Kulingana na Ufunuo 2:5, nini hatua ya kwanza ya kurejea?", a: "Kukumbuka ni wapi ulikozuka (ulipoachia njia)." },
+            { q: "Kwa nini ni muhimu kushiriki udhaifu wako (Vulnerability)?", a: "Ili kuvunja ukuta wa 'ujitakatifu wa bandia' na kumfanya mwingine ajisikie kuwa si peke yake." },
+            { q: "Mithali 20:5 inafananisha nia ya moyo wa mtu na nini?", a: "Maji marefu." },
+            { q: "Yesu alifanya nini kwanza kabla ya kuwasha mioyo ya wanafunzi wa Emau?", a: "Alitembea nao na kusikiliza huzuni zao." },
+            { q: "Nini madhara ya kuja na Biblia moja kwa moja kwa mtu mwenye hatia?", a: "Anaweza kuanza 'kujihami' (defensive)." },
+            { q: "Kusikiliza mtu mwingine kumeitwa nini katika hitimisho?", a: "Kusikiliza ni ibada." },
+            { q: "Ni nani anayetoa maneno ya hekima katika mazungumzo?", a: "Roho Mtakatifu." }
+        ];
+
+        // 4. Persistence & Logic
+        async function saveData(section) {
+            const data = {};
+            const fields = document.querySelectorAll(`textarea[id]`);
+            fields.forEach(field => {
+                data[field.id] = field.value;
+            });
+
+            try {
+                await db.collection(COLLECTION_NAME).doc(USER_ID).set(data, { merge: true });
+                alert("Data imehifadhiwa salama kwenye Firebase! 🙏");
+            } catch (e) {
+                console.error("Error saving: ", e);
+            }
+        }
+
+        async function loadData() {
+            const doc = await db.collection(COLLECTION_NAME).doc(USER_ID).get();
+            if (doc.exists) {
+                const data = doc.data();
+                Object.keys(data).forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) el.value = data[id];
+                });
+                updateQuizUI();
+            }
+        }
+
+        function renderQuiz() {
+            const container = document.getElementById('qa-container');
+            container.innerHTML = quizData.map((item, i) => `
+                <div id="q_card_${i}" class="qa-card p-6 bg-white dark:bg-darkCard rounded-2xl border border-slate-100 dark:border-slate-800 shadow-md ${i > 0 ? 'locked' : ''}">
+                    <div class="flex gap-4">
+                        <span class="w-10 h-10 rounded-full bg-accentBlue text-white flex items-center justify-center font-bold shrink-0">${i+1}</span>
+                        <div class="w-full">
+                            <p class="font-bold text-lg mb-4">${item.q}</p>
+                            <textarea id="quiz_ans_${i}" class="w-full p-3 bg-slate-50 dark:bg-slate-900 rounded-xl border-none mb-3" placeholder="Andika jibu lako hapa..."></textarea>
+                            <div id="pastor_ans_${i}" class="hidden p-4 bg-accentBlue/10 text-accentBlue rounded-xl mb-3 text-sm italic">
+                                <b>Majibu ya Pastor Aloyce:</b> ${item.a}
+                            </div>
+                            <div class="flex gap-2">
+                                <button onclick="submitQuiz(${i})" id="btn_submit_${i}" class="px-6 py-2 bg-accentBlue text-white rounded-full text-sm font-bold">Jibu Sasa</button>
+                                <button onclick="togglePastorAnswer(${i})" id="btn_show_${i}" class="hidden px-6 py-2 bg-accentOrange text-white rounded-full text-sm font-bold">Onyesha Jibu</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        async function submitQuiz(i) {
+            const ans = document.getElementById(`quiz_ans_${i}`).value;
+            if (ans.trim().length < 5) {
+                alert("Tafadhali andika jibu kwanza.");
+                return;
+            }
+
+            await db.collection(COLLECTION_NAME).doc(USER_ID).set({
+                [`quiz_ans_${i}`]: ans,
+                [`quiz_completed_${i}`]: true
+            }, { merge: true });
+
+            document.getElementById(`btn_show_${i}`).classList.remove('hidden');
+            if (i < quizData.length - 1) {
+                document.getElementById(`q_card_${i+1}`).classList.remove('locked');
+            }
+            updateQuizUI();
+        }
+
+        function togglePastorAnswer(i) {
+            const div = document.getElementById(`pastor_ans_${i}`);
+            div.classList.toggle('hidden');
+        }
+
+        function updateQuizUI() {
+            let count = 0;
+            quizData.forEach((_, i) => {
+                const input = document.getElementById(`quiz_ans_${i}`);
+                if (input && input.value.trim() !== '') {
+                    count++;
+                    document.getElementById(`btn_show_${i}`).classList.remove('hidden');
+                    if (i < quizData.length - 1) {
+                        document.getElementById(`q_card_${i+1}`).classList.remove('locked');
+                    }
+                }
+            });
+            document.getElementById('answered-count').innerText = count;
+            document.getElementById('percentage').innerText = (count / 10 * 100).toFixed(0);
+        }
+
+        // Initialize
+        document.getElementById('todayDate').innerText = "Tarehe: " + new Date().toLocaleDateString('sw-TZ', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+        
+        window.onload = async () => {
+            renderQuiz();
+            await loadData();
+            
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+                document.getElementById('theme-icon').className = 'fas fa-sun';
+            }
+        };
+
+    </script>
+</body>
+</html>

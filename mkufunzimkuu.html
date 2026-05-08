@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mkufunzi Dashboard | Pastoraloyce</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-blue: #1e3a8a;
+            --primary-orange: #f97316;
+            --slate-bg: #f1f5f9;
+        }
+        body { background-color: var(--slate-bg); transition: font-size 0.2s ease-in; }
+        .bg-blue-custom { background-color: var(--primary-blue); }
+        .text-orange-custom { color: var(--primary-orange); }
+        .btn-orange { background-color: var(--primary-orange); color: white; transition: 0.3s; }
+        .btn-orange:hover { background-color: #ea580c; }
+        .card-border { border-top: 4px solid var(--primary-orange); }
+        #mobile-menu { transition: transform 0.3s ease-in-out; }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+
+    <nav class="bg-blue-custom text-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-2">
+                    <div class="bg-orange-500 p-1.5 rounded-lg">
+                        <i class="fas fa-chalkboard-teacher text-white"></i>
+                    </div>
+                    <span class="font-bold text-lg tracking-tight">Mkufunzi Mkuu</span>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-6">
+                    <div class="flex items-center bg-blue-900 rounded-lg px-3 py-1 space-x-3">
+                        <button onclick="changeFontSize('decrease')" class="hover:text-orange-400 p-1"><i class="fas fa-minus-circle"></i></button>
+                        <span class="text-xs uppercase font-bold">Ukubwa wa Maandishi</span>
+                        <button onclick="changeFontSize('increase')" class="hover:text-orange-400 p-1"><i class="fas fa-plus-circle"></i></button>
+                    </div>
+                    <a href="https://wa.me/255757344860" class="btn-orange px-4 py-2 rounded-md text-sm font-bold">Msaada WhatsApp</a>
+                </div>
+
+                <div class="md:hidden flex items-center">
+                    <button id="menu-btn" class="outline-none">
+                        <i class="fas fa-bars text-2xl text-orange-500"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden bg-blue-800 p-4 space-y-4">
+            <div class="flex justify-around bg-blue-900 p-3 rounded">
+                <button onclick="changeFontSize('decrease')" class="text-white">Punguza Maandishi <i class="fas fa-minus ml-2"></i></button>
+                <button onclick="changeFontSize('increase')" class="text-white">Kuza Maandishi <i class="fas fa-plus ml-2"></i></button>
+            </div>
+            <a href="https://wa.me/255757344860" class="block text-center btn-orange py-3 rounded-md font-bold">Msaada WhatsApp</a>
+        </div>
+    </nav>
+
+    <main class="flex-grow max-w-5xl mx-auto w-full p-4 md:p-8" id="content-area">
+        <header class="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+                <h1 class="text-2xl md:text-3xl font-extrabold text-blue-900">Kazi za Wanafunzi</h1>
+                <p class="text-slate-500 text-sm">Sahihisha na utoe maoni kwa wanafunzi wako.</p>
+            </div>
+            <div id="count" class="inline-block bg-orange-100 text-orange-700 px-4 py-2 rounded-full text-sm font-bold shadow-sm">
+                Inapakia...
+            </div>
+        </header>
+
+        <div id="submissions-list" class="grid gap-8">
+            </div>
+    </main>
+
+    <footer class="bg-slate-900 text-slate-400 py-8 px-4 mt-12">
+        <div class="max-w-5xl mx-auto text-center">
+            <div class="text-white font-bold text-xl mb-2">Pastoraloyce <span class="text-orange-500">Courses</span></div>
+            <p class="text-sm mb-4">Mfumo wa usimamizi wa masomo na ufuatiliaji wa wanafunzi.</p>
+            <div class="flex justify-center space-x-6 mb-6 text-xl">
+                <a href="https://wa.me/255757344860" class="hover:text-orange-500"><i class="fab fa-whatsapp"></i></a>
+                <a href="#" class="hover:text-orange-500"><i class="fas fa-envelope"></i></a>
+            </div>
+            <div class="border-t border-slate-800 pt-6 text-xs">
+                &copy; 2026 Pastoraloyce. Haki zote zimehifadhiwa. | Mwanza, Tanzania.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Firebase Config
+        const firebaseConfig = {
+            apiKey: "AIzaSyCv01cdwWFqeDcvMAkILY3K4G8yKJWwL6k",
+            authDomain: "pastoraloyce-3530f.firebaseapp.com",
+            projectId: "pastoraloyce-3530f",
+            storageBucket: "pastoraloyce-3530f.firebasestorage.app",
+            messagingSenderId: "978341477941",
+            appId: "1:978341477941:web:289e3b0671f00e52907b7c",
+            measurementId: "G-XYK8ZL0JSJ"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        // Control Menu
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Font Size Control
+        let currentFontSize = 16;
+        function changeFontSize(action) {
+            const body = document.getElementById('content-area');
+            if(action === 'increase' && currentFontSize < 24) currentFontSize += 2;
+            if(action === 'decrease' && currentFontSize > 12) currentFontSize -= 2;
+            body.style.fontSize = currentFontSize + 'px';
+        }
+
+        // Firestore Live Listener
+        const submissionsList = document.getElementById('submissions-list');
+        const countBadge = document.getElementById('count');
+
+        db.collection("submissions").orderBy("timestamp", "desc")
+        .onSnapshot((querySnapshot) => {
+            submissionsList.innerHTML = "";
+            let pendingCount = 0;
+
+            if (querySnapshot.empty) {
+                submissionsList.innerHTML = `<div class="text-center py-20 text-slate-400">Bado hakuna kazi yoyote iliyotumwa.</div>`;
+                countBadge.innerText = "0 Kazi";
+                return;
+            }
+
+            querySnapshot.forEach((doc) => {
+                const data = doc.data();
+                const id = doc.id;
+                if (!data.instructorComment) pendingCount++;
+
+                const card = `
+                    <div class="bg-white rounded-xl shadow-md overflow-hidden card-border">
+                        <div class="p-5 md:p-7">
+                            <div class="flex justify-between items-start mb-4">
+                                <div class="flex items-center space-x-3">
+                                    <div class="h-10 w-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-800 font-bold">
+                                        ${(data.studentName || 'M').charAt(0)}
+                                    </div>
+                                    <div>
+                                        <h3 class="font-bold text-slate-800 leading-none">${data.studentName || 'Mwanafunzi'}</h3>
+                                        <small class="text-slate-400 italic">${data.timestamp?.toDate().toLocaleString() || 'Sasa'}</small>
+                                    </div>
+                                </div>
+                                <span class="px-3 py-1 rounded-full text-[10px] font-black tracking-widest uppercase ${data.instructorComment ? 'bg-green-100 text-green-700' : 'bg-orange-100 text-orange-700'}">
+                                    ${data.instructorComment ? 'Imekaguliwa' : 'Mpya'}
+                                </span>
+                            </div>
+                            
+                            <div class="bg-slate-50 border border-slate-100 p-5 rounded-lg mb-6 text-slate-700 leading-relaxed shadow-inner">
+                                ${data.content}
+                            </div>
+                            
+                            <div class="space-y-4">
+                                <label class="text-xs font-bold text-slate-500 uppercase">Maoni ya Mkufunzi</label>
+                                <textarea id="comment-${id}" 
+                                    class="w-full p-4 text-sm border-2 border-slate-100 rounded-xl focus:border-orange-500 focus:ring-0 outline-none transition-all resize-none" 
+                                    rows="3" placeholder="Andika hapa...">${data.instructorComment || ''}</textarea>
+                                <button onclick="saveComment('${id}')" 
+                                    class="btn-orange w-full md:w-auto px-8 py-3 rounded-xl font-bold shadow-lg shadow-orange-200 active:scale-95 transform transition">
+                                    <i class="fas fa-paper-plane mr-2"></i> Hifadhi & Tuma Maoni
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                submissionsList.innerHTML += card;
+            });
+            countBadge.innerText = `${pendingCount} Zinazosubiri`;
+        });
+
+        async function saveComment(id) {
+            const commentValue = document.getElementById(`comment-${id}`).value;
+            if(!commentValue) {
+                alert("Tafadhali andika maoni kwanza.");
+                return;
+            }
+            try {
+                await db.collection("submissions").doc(id).update({
+                    instructorComment: commentValue,
+                    status: "reviewed"
+                });
+                alert("Maoni yamehifadhiwa kwa mafanikio!");
+            } catch (error) {
+                alert("Kuna tatizo: " + error.message);
+            }
+        }
+    </script>
+</body>
+</html>

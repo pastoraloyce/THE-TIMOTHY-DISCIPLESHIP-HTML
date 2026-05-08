@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="sw" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduli ya 1: Wakati Mapigo ya Moyo wa Kiroho Yanapofifia</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Merriweather:wght@400;700&family=Fira+Code&family=EB+Garamond:wght@400;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        darkBg: '#0f172a', // Deep Blue
+                        darkCard: '#1e293b',
+                        accentBlue: '#3b82f6',
+                        accentOrange: '#f97316',
+                        softCyan: '#22d3ee',
+                        softTeal: '#14b8a6',
+                        offWhite: '#f8fafc',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Styles for non-tailwind utilities */
+        .progress-container { width: 100%; height: 6px; background: transparent; position: fixed; top: 0; z-index: 100; }
+        .progress-bar { height: 6px; background: #f97316; width: 0%; transition: width 0.2s; }
+        
+        .font-serif-custom { font-family: 'EB Garamond', serif; }
+        .font-sans-custom { font-family: 'Inter', sans-serif; }
+        .font-tnr-custom { font-family: 'Times New Roman', Times, serif; }
+        .font-mono-custom { font-family: 'Fira Code', monospace; }
+
+        article { transition: font-size 0.3s ease; }
+        
+        /* Smooth scrolling */
+        html { scroll-behavior: smooth; }
+
+        .glass-morphism {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .qa-card.locked { opacity: 0.5; pointer-events: none; filter: grayscale(1); }
+    </style>
+</head>
+<body class="bg-offWhite dark:bg-darkBg text-slate-800 dark:text-slate-200 transition-colors duration-500">
+
+    <div class="progress-container">
+        <div class="progress-bar" id="myBar"></div>
+    </div>
+
+    <nav class="fixed bottom-6 right-6 flex flex-col gap-3 z-50">
+        <button onclick="toggleDarkMode()" class="p-4 bg-accentBlue text-white rounded-full shadow-lg hover:scale-110 transition-transform">
+            <i id="theme-icon" class="fas fa-moon"></i>
+        </button>
+        
+        <div class="relative group">
+            <button class="p-4 bg-accentOrange text-white rounded-full shadow-lg">
+                <i class="fas fa-font"></i>
+            </button>
+            <div class="absolute bottom-16 right-0 bg-white dark:bg-darkCard p-2 rounded-xl shadow-2xl border border-slate-200 dark:border-slate-700 hidden group-hover:block w-48">
+                <button onclick="changeFont('font-serif-custom')" class="w-full text-left p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded font-serif-custom">Serif</button>
+                <button onclick="changeFont('font-sans-custom')" class="w-full text-left p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded font-sans-custom">Sans-Serif</button>
+                <button onclick="changeFont('font-tnr-custom')" class="w-full text-left p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded font-tnr-custom">Times New Roman</button>
+                <button onclick="changeFont('font-mono-custom')" class="w-full text-left p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded font-mono-custom">Monospace</button>
+            </div>
+        </div>
+
+        <div class="flex flex-col gap-2 bg-white dark:bg-darkCard p-2 rounded-full shadow-lg border border-slate-200 dark:border-slate-700">
+            <button onclick="resizeText(1)" class="p-2 text-accentBlue font-bold">A+</button>
+            <hr class="dark:border-slate-700">
+            <button onclick="resizeText(-1)" class="p-2 text-accentOrange font-bold">A-</button>
+        </div>
+    </nav>
+
+    <main class="max-w-4xl mx-auto px-4 pt-12 pb-24">
+        
+        <header class="text-center mb-16">
+            <div class="mb-6 inline-block px-4 py-1 rounded-full bg-accentBlue/10 text-accentBlue font-semibold text-sm">
+                Moduli ya 1: Utangulizi
+            </div>
+            <h1 id="article-title" class="text-4xl md:text-6xl font-bold mb-8 leading-tight">
+                Namna ya Kumsaidia Mtu Aliyepoteza Shauku ya Kumtafuta Mungu 🔥
+            </h1>
+            
+            <div class="flex items-center justify-center gap-4 mb-8 text-slate-500">
+                <div class="text-left">
+                    <p class="font-bold text-slate-900 dark:text-white">Mwandishi: Pastor Aloyce</p>
+                    <p id="current-date">Tarehe: </p>
+                </div>
+            </div>
+
+            <img src="https://images.unsplash.com/photo-1507434965515-61970f2bd7c6?auto=format&fit=crop&q=80&w=1280" alt="Spiritual Growth" class="w-full h-96 object-cover rounded-3xl shadow-2xl mb-12">
+        </header>
+
+        <article id="article-content" class="font-serif-custom text-xl leading-relaxed space-y-8 text-justify">
+            <h2 class="text-3xl font-bold text-accentBlue mt-12">Utangulizi: Kilio cha Moyo Kinachonyamaza 🕯️</h2>
+            <p>
+                Je, umewahi kumtazama mtu aliyekuwa akishika moto kwa ajili ya Mungu, sasa macho yake yamepoteza mwangaza wa imani? Au labda unamjua rafiki ambaye zamani maombi yalikuwa pumzi yake, lakini leo hii hata kutaja jina la Yesu kunamletea uchovu na maswali yasiyokuwa na majibu?
+            </p>
+
+            <blockquote class="border-l-4 border-accentOrange bg-accentOrange/5 p-6 italic rounded-r-xl">
+                "Kupoteza shauku ya kumtafuta Mungu si jambo la ghafla; ni mchakato wa polepole, kama mshumaa unaozimika taratibu chumbani."
+            </blockquote>
+
+            <p>
+                Katika moduli hii, tunaingia ndani kabisa ya moyo wa mtu huyu. Hatuji kama mahakimu wenye vidole vya kunyooshea lawama, bali tunakuja kama tabibu wa kiroho, tukiwa na dawa ya upendo, hekima, na neno la uzima. Tunajifunza lugha ya kurejesha badala ya kubomoa, na hekima ya kusubiri badala ya kuharakisha.
+            </p>
+
+            <div class="bg-darkCard text-white p-8 rounded-3xl my-12">
+                <h3 class="text-2xl font-bold mb-4 text-accentOrange">Lengo la Moduli 🎯</h3>
+                <ul class="list-disc list-inside space-y-3 opacity-90">
+                    <li>Kujenga uelewa wa kina juu ya asili ya ukame wa kiroho.</li>
+                    <li>Kutambua wajibu wetu kama waamini katika kurejesha waliovunjika moyo.</li>
+                    <li>Kuweka msingi wa kitheolojia na kiroho wa safari hii ya urejesho.</li>
+                </ul>
+            </div>
+
+            <p>
+                Funga macho yako kwa dakika moja. Mfikirie mtu yule unayetamani kumsaidia. Usione dhambi zake, usione ubaridi wake. Hebu mtafute mtu yule aliyekuwa ndani yake kabla ya dhoruba kumpiga. Je, unaweza kuhisi kiu ya siri aliyonayo, hata kama mdomo wake unakataa kukiri? Mungu anakutumia wewe kama mjumbe wa tumaini. ✨
+            </p>
+
+            <div class="p-6 bg-softTeal/10 border border-softTeal rounded-2xl">
+                <p>
+                    Moduli hii ya kwanza imetufundisha kuwa kupoteza shauku si kifo cha imani, bali ni mwito wa kurejea kwenye chanzo. Tumeelewa kuwa sisi ni vyombo vya neema na kwamba upole ndio ufunguo wa kuufungua moyo uliopooza.
+                </p>
+            </div>
+        </article>
+
+        <section class="mt-20 space-y-12">
+            <h2 class="text-4xl font-bold text-center mb-12">Tafakuri & Maombi 📝</h2>
+
+            <div class="space-y-6">
+                <div class="p-8 bg-white dark:bg-darkCard rounded-3xl shadow-xl border border-slate-100 dark:border-slate-800">
+                    <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+                        <i class="fas fa-pen-nib text-accentBlue"></i> 1. Mambo uliyoyabaini na kutafakari
+                    </h3>
+                    <textarea id="note-1" class="w-full p-4 rounded-xl bg-slate-50 dark:bg-slate-900 border-none focus:ring-2 focus:ring-accentBlue h-40" placeholder="Andika tafakuri yako hapa..."></textarea>
+                    <button onclick="saveNote('note-1')" class="mt-4 px-6 py-2 bg-accentBlue text-white rounded-full hover:bg-blue-600 transition">Hifadhi Tafakari</button>
+                </div>
+
+                <div class="p-8 bg-white dark:bg-darkCard rounded-3xl shadow-xl border border-slate-100 dark:border-slate-800">
+                    <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+                        <i class="fas fa-users text-accentOrange"></i> 2. Mambo waliyoandika wenzako (Kazi ya Kikundi)
+                    </h3>
+                    <textarea id="note-2" class="w-full p-4 rounded-xl bg-slate-50 dark:bg-slate-900 border-none focus:ring-2 focus:ring-accentOrange h-40" placeholder="Andika mambo ya ziada kutoka kwa wenzako..."></textarea>
+                    <button onclick="saveNote('note-2')" class="mt-4 px-6 py-2 bg-accentOrange text-white rounded-full hover:bg-orange-600 transition">Hifadhi Notes</button>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="p-8 bg-softCyan/5 border border-softCyan/20 rounded-3xl">
+                    <h3 class="font-bold mb-4 text-accentBlue">Shughuli ya 1: Kumshirikisha Rafiki</h3>
+                    <p class="text-sm italic mb-4 italic">"Mtu mmoja akimshinda mmoja, wawili watashindana naye; na kamba ya nyuzi tatu haikatiki upesi." - Mhubiri 4:12 (SUV)</p>
+                    <textarea id="shughuli-1" class="w-full bg-white dark:bg-slate-900 p-3 rounded-lg border-none" placeholder="Andika mambo ya kumshirikisha rafiki..."></textarea>
+                    <button onclick="saveNote('shughuli-1')" class="mt-2 text-accentBlue font-bold underline">Save</button>
+                </div>
+                <div class="p-8 bg-softTeal/5 border border-softTeal/20 rounded-3xl">
+                    <h3 class="font-bold mb-4 text-softTeal">Shughuli ya 2: Majina ya Washiriki</h3>
+                    <p class="text-sm italic mb-4">"Naye akawaambia, Enendeni ulimwenguni mwote, mkaihubiri Injili kwa kila kiumbe." - Marko 16:15 (SUV)</p>
+                    <textarea id="shughuli-2" class="w-full bg-white dark:bg-slate-900 p-3 rounded-lg border-none" placeholder="Andika majina hapa..."></textarea>
+                    <button onclick="saveNote('shughuli-2')" class="mt-2 text-softTeal font-bold underline">Save</button>
+                </div>
+            </div>
+
+            <div class="p-10 bg-accentBlue text-white rounded-3xl shadow-2xl">
+                <h3 class="text-2xl font-bold mb-6 text-center italic">Lengo la Mabadiliko ya Ufalme 👑</h3>
+                <div class="space-y-6">
+                    <div>
+                        <label class="block mb-2 font-semibold">Badiliko Langu (Neema ya Mungu):</label>
+                        <p class="text-xs mb-2 opacity-80">"Lakini kwa neema ya Mungu nimekuwa hivi nilivyo; na neema yake iliyo kwangu haikuwa bure." - 1 Wakorintho 15:10 (SUV)</p>
+                        <textarea id="badiliko-1" class="w-full bg-white/10 p-4 rounded-xl border border-white/20 placeholder-white/50" placeholder="Andika badiliko unalotarajia..."></textarea>
+                    </div>
+                    <div>
+                        <label class="block mb-2 font-semibold">Badiliko la Rafiki yangu:</label>
+                        <p class="text-xs mb-2 opacity-80">"Maana yeye atakayemwokoa rafiki yake na dhambi, ataokoa roho na mauti." - Yakobo 5:20 (SUV)</p>
+                        <textarea id="badiliko-2" class="w-full bg-white/10 p-4 rounded-xl border border-white/20 placeholder-white/50" placeholder="Mabadiliko ya rafiki yako..."></textarea>
+                    </div>
+                    <button onclick="saveLengo()" class="w-full py-4 bg-white text-accentBlue font-bold rounded-xl hover:bg-slate-100 transition">Hifadhi Mabadiliko Yote</button>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="p-8 bg-slate-100 dark:bg-slate-800 rounded-3xl border-t-4 border-accentBlue">
+                    <h3 class="font-bold mb-2">Maombi ya Neema 🙏</h3>
+                    <p class="text-xs mb-4 opacity-70">"Basi na tukikaribie kiti cha neema kwa ujasiri, ili tupewe rehema, na kupata neema ya kutusaidia wakati wa mahitaji." - Waebrania 4:16 (SUV)</p>
+                    <textarea id="maombi-1" class="w-full bg-white dark:bg-slate-900 p-3 rounded-lg border-none h-32" placeholder="Andika ombi lako..."></textarea>
+                </div>
+                <div class="p-8 bg-slate-100 dark:bg-slate-800 rounded-3xl border-t-4 border-accentOrange">
+                    <h3 class="font-bold mb-2">Kumwombea Rafiki 🙌</h3>
+                    <p class="text-xs mb-4 opacity-70">"Tena nawaambia, ya kwamba wawili wenu watakapopatana duniani katika jambo lo lote watakaloliomba, watafanyiwa na Baba yangu aliye mbinguni." - Mathayo 18:19 (SUV)</p>
+                    <textarea id="maombi-2" class="w-full bg-white dark:bg-slate-900 p-3 rounded-lg border-none h-32" placeholder="Ombi kwa ajili ya rafiki..."></textarea>
+                </div>
+            </div>
+        </section>
+
+        <section id="qa-section" class="mt-24">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold mb-4">Maswali na Majibu ❓</h2>
+                <p class="text-slate-500">Jibu kila swali kwa umakini ili kuendelea mbele.</p>
+                <div id="score-board" class="mt-4 text-2xl font-bold text-accentBlue">
+                    Maendeleo: <span id="answered-count">0</span>/10 (<span id="percentage">0</span>%)
+                </div>
+            </div>
+
+            <div id="qa-container" class="space-y-6">
+                </div>
+        </section>
+
+        <section class="mt-24 p-12 bg-gradient-to-br from-accentBlue to-accentOrange rounded-[3rem] text-white text-center">
+            <h2 class="text-3xl font-bold mb-6">Tayari kwa Moduli inayofuata?</h2>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="kozi 3 moduli ya pili.html" class="px-8 py-3 bg-white text-accentBlue font-bold rounded-full hover:scale-105 transition">Moduli ya 2: Sanaa ya Maongezi ya Urejesho – Kutengeneza Mazingira ya Uwazi </a>
+                <a href="#" class="px-8 py-3 bg-white/20 text-white font-bold rounded-full backdrop-blur hover:bg-white/30 transition">Moduli ya 3: Kukaa Katika Neno</a>
+            </div>
+        </section>
+
+        <footer class="mt-20 text-center space-y-6 border-t border-slate-200 dark:border-slate-800 pt-12">
+            <div class="max-w-2xl mx-auto italic opacity-80">
+                "Baba wa mbinguni, nakushukuru kwa ajili ya mwanafunzi huyu aliyebeba mzigo wa kurejesha mioyo. Ninaomba umpe moyo wa nyama, macho yenye huruma, na ulimi wenye hekima ya kimbingu. Washa moto wako upya ndani yake ili aweze kuwa mwanga kwa wale walio gizani. Katika jina la Yesu, Amina."
+            </div>
+            <p class="font-bold text-accentOrange">&copy; 2024 Pastor Aloyce - Badiliko la Kiroho</p>
+        </footer>
+
+    </main>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+
+    <script>
+        // 1. Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCv01cdwWFqeDcvMAkILY3K4G8yKJWwL6k",
+            authDomain: "pastoraloyce-3530f.firebaseapp.com",
+            projectId: "pastoraloyce-3530f",
+            storageBucket: "pastoraloyce-3530f.firebasestorage.app",
+            messagingSenderId: "978341477941",
+            appId: "1:978341477941:web:289e3b0671f00e52907b7c",
+            measurementId: "G-XYK8ZL0JSJ"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        // 2. State & Variables
+        let fontSize = 20;
+        const userId = "user_" + navigator.userAgent.replace(/\D/g, "").slice(0, 5); // Simple local ID
+        
+        // Questions Data
+        const questions = [
+            { q: "Ni nini asili ya ukame wa kiroho kulingana na moduli?", a: "Ni mchakato wa polepole wa kupoteza shauku kama mshumaa unavyozimika." },
+            { q: "Tunapaswa kuja kama nini kwa aliyepotea shauku?", a: "Kama tabibu wa kiroho mwenye upendo na dawa ya neno la uzima." },
+            { q: "Je, kupoteza shauku ni kifo cha imani?", a: "Hapana, ni mwito wa kurejea kwenye chanzo." },
+            { q: "Ni ufunguo gani wa kuufungua moyo uliopooza?", a: "Upole ndio ufunguo wa kuufungua moyo uliopooza." },
+            { q: "Wajibu wetu mkuu ni nini?", a: "Kurejesha waliovunjika moyo kwa neema na hekima." },
+            { q: "Unapaswa kuona nini ndani ya mtu aliyepoteza shauku?", a: "Kiu ya siri aliyonayo moyoni mwake." },
+            { q: "Tunapaswa kuepuka nini tunaposaidia wengine?", a: "Kuhukumu na kunyooshea lawama kwa vidole." },
+            { q: "Nini kinatokea kwa mapigo ya moyo wa kiroho?", a: "Yanafifia taratibu, hivyo yanahitaji urejesho." },
+            { q: "Je, mashujaa wa imani walipitia nyakati za ukame?", a: "Ndiyo, lakini hawakuachwa hapo, Mungu aliwarejesha." },
+            { q: "Nini maana ya kuwa mjumbe wa tumaini?", a: "Kuwa chombo ambacho Mungu anakitumia kuwasha moto upya ndani ya wengine." }
+        ];
+
+        // 3. Functions
+        
+        // Date Setup
+        document.getElementById('current-date').innerText += new Date().toLocaleDateString('sw-TZ', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+
+        // Theme Toggle
+        function toggleDarkMode() {
+            const html = document.documentElement;
+            const icon = document.getElementById('theme-icon');
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                icon.className = 'fas fa-moon';
+                localStorage.theme = 'light';
+            } else {
+                html.classList.add('dark');
+                icon.className = 'fas fa-sun';
+                localStorage.theme = 'dark';
+            }
+        }
+
+        // Font Controls
+        function changeFont(fontClass) {
+            const article = document.getElementById('article-content');
+            article.className = fontClass + " text-xl leading-relaxed space-y-8 text-justify";
+        }
+
+        function resizeText(delta) {
+            fontSize += delta * 2;
+            document.getElementById('article-content').style.fontSize = fontSize + 'px';
+        }
+
+        // Scroll Progress
+        window.onscroll = function() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (winScroll / height) * 100;
+            document.getElementById("myBar").style.width = scrolled + "%";
+        };
+
+        // Firebase Sync
+        function saveNote(id) {
+            const val = document.getElementById(id).value;
+            db.collection("user_notes").doc(userId).set({
+                [id]: val
+            }, { merge: true }).then(() => {
+                alert("Imehifadhiwa kwa Neema ya Mungu! ✨");
+            });
+        }
+
+        function saveLengo() {
+            saveNote('badiliko-1');
+            saveNote('badiliko-2');
+        }
+
+        function loadSavedData() {
+            db.collection("user_notes").doc(userId).get().then((doc) => {
+                if (doc.exists) {
+                    const data = doc.data();
+                    Object.keys(data).forEach(key => {
+                        const el = document.getElementById(key);
+                        if (el) el.value = data[key];
+                    });
+                }
+            });
+        }
+
+        // Q&A Logic
+        let answeredCount = 0;
+        function renderQA() {
+            const container = document.getElementById('qa-container');
+            container.innerHTML = '';
+            
+            questions.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.id = `q-card-${index}`;
+                card.className = `qa-card p-6 rounded-2xl transition-all duration-500 ${index === 0 ? '' : 'locked'} bg-white dark:bg-darkCard border border-slate-100 dark:border-slate-800 shadow-lg`;
+                
+                card.innerHTML = `
+                    <div class="flex items-start gap-4">
+                        <span class="bg-accentBlue text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0 font-bold">${index + 1}</span>
+                        <div class="w-full">
+                            <p class="font-bold text-lg mb-4">${item.q}</p>
+                            <textarea id="ans-input-${index}" class="w-full p-3 bg-slate-50 dark:bg-slate-900 rounded-xl border-none mb-3" placeholder="Andika jibu lako hapa..."></textarea>
+                            <div id="feedback-${index}" class="hidden p-4 bg-accentBlue/10 text-accentBlue rounded-xl mb-3 text-sm italic">
+                                <b>Majibu ya Pastor Aloyce:</b> ${item.a}
+                            </div>
+                            <div class="flex gap-2">
+                                <button id="btn-submit-${index}" onclick="submitAnswer(${index})" class="px-6 py-2 bg-accentBlue text-white rounded-full text-sm font-bold">Jibu Sasa</button>
+                                <button id="btn-show-${index}" onclick="showPastorAnswer(${index})" class="hidden px-6 py-2 bg-softCyan text-white rounded-full text-sm font-bold">Onyesha Jibu la Pastor</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function submitAnswer(index) {
+            const input = document.getElementById(`ans-input-${index}`).value;
+            if (input.trim().length < 5) {
+                alert("Tafadhali andika jibu la kina kidogo kwanza.");
+                return;
+            }
+
+            // Save to Firebase
+            db.collection("user_qa").doc(userId).set({
+                [`ans_${index}`]: input
+            }, { merge: true });
+
+            document.getElementById(`btn-submit-${index}`).innerText = "Imejibiwa (Edit)";
+            document.getElementById(`btn-show-${index}`).classList.remove('hidden');
+            
+            // Unlock next
+            if (index < questions.length - 1) {
+                document.getElementById(`q-card-${index + 1}`).classList.remove('locked');
+            }
+
+            updateProgress();
+        }
+
+        function showPastorAnswer(index) {
+            document.getElementById(`feedback-${index}`).classList.remove('hidden');
+        }
+
+        function updateProgress() {
+            const total = questions.length;
+            let answered = 0;
+            for(let i=0; i<total; i++) {
+                if(document.getElementById(`ans-input-${i}`).value.trim() !== '') answered++;
+            }
+            document.getElementById('answered-count').innerText = answered;
+            document.getElementById('percentage').innerText = (answered/total * 100).toFixed(0);
+        }
+
+        // Initial Load
+        window.onload = () => {
+            loadSavedData();
+            renderQA();
+            
+            // Check Dark Mode preference
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+                document.getElementById('theme-icon').className = 'fas fa-sun';
+            }
+        };
+
+    </script>
+</body>
+</html>
