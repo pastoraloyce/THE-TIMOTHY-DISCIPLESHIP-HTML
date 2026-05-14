@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TTD | CGN Portal Details</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&family=Inter:wght@300;400;700&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     
     <script>
         tailwind.config = {
@@ -22,7 +22,8 @@
     </script>
 
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        :root { --main-font: 'Plus Jakarta Sans', sans-serif; }
+        body { font-family: var(--main-font); transition: font-size 0.2s ease; }
         .expandable-content { max-height: 0; overflow: hidden; transition: all 0.5s ease-in-out; opacity: 0; }
         .active > .expandable-content { max-height: 5000px; opacity: 1; padding-bottom: 20px; }
         .rotate-icon { transition: transform 0.3s ease; }
@@ -30,10 +31,14 @@
         .cgn-card { border: 2px solid #1e40af; background: #ffffff; border-radius: 1.5rem; overflow: hidden; }
         .dark .cgn-card { background: #1e293b; border-color: #3b82f6; }
         .student-detail-card { border-left: 4px solid #f97316; }
+        
+        /* Custom UI for Settings */
+        .settings-panel { display: none; }
+        .settings-panel.open { display: block; }
     </style>
 </head>
 
-<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100">
+<body id="mainBody" class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 text-base">
 
     <nav class="fixed w-full z-50 bg-brandBlue text-white shadow-xl px-6 py-4">
         <div class="max-w-6xl mx-auto flex justify-between items-center">
@@ -43,7 +48,37 @@
                 </div>
                 <span class="font-black tracking-tighter uppercase text-lg italic">CGN Network</span>
             </div>
-            <button onclick="document.documentElement.classList.toggle('dark')" class="text-lg">🌓</button>
+            
+            <div class="flex items-center gap-4">
+                <button onclick="toggleSettings()" class="bg-white/10 p-2 rounded-full hover:bg-white/20 transition-all" title="Mipangilio">⚙️</button>
+                <button onclick="document.documentElement.classList.toggle('dark')" class="text-lg">🌓</button>
+            </div>
+        </div>
+
+        <!-- Settings Dropdown -->
+        <div id="settingsPanel" class="settings-panel absolute right-6 top-20 bg-white dark:bg-slate-800 text-slate-900 dark:text-white p-6 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700 w-72 animate-in fade-in zoom-in duration-200">
+            <h4 class="font-black text-xs uppercase mb-4 tracking-widest text-brandOrange">Muonekano</h4>
+            
+            <!-- Font Selection -->
+            <div class="mb-4">
+                <label class="text-[10px] font-bold uppercase opacity-60">Aina ya Maandishi (Font)</label>
+                <select onchange="changeFont(this.value)" class="w-full mt-1 p-2 rounded bg-slate-100 dark:bg-slate-700 text-xs font-bold outline-none border-none">
+                    <option value="'Plus Jakarta Sans', sans-serif">Modern (Jakarta)</option>
+                    <option value="'Inter', sans-serif">Professional (Inter)</option>
+                    <option value="'Lora', serif">Classic (Serif)</option>
+                </select>
+            </div>
+
+            <!-- Size Slider -->
+            <div class="mb-2">
+                <label class="text-[10px] font-bold uppercase opacity-60">Ukubwa wa Maandishi (Size)</label>
+                <input type="range" min="12" max="24" value="16" oninput="changeSize(this.value)" class="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-brandOrange mt-2">
+                <div class="flex justify-between text-[10px] font-bold mt-1 opacity-50">
+                    <span>Small</span>
+                    <span id="sizeVal">16px</span>
+                    <span>Large</span>
+                </div>
+            </div>
         </div>
     </nav>
 
@@ -55,10 +90,9 @@
                     <h1 class="text-2xl font-black text-brandBlue dark:text-blue-400 uppercase leading-none">
                         Msimamizi: <span class="text-brandOrange">Pastor Aloyce</span>
                     </h1>
-                    <p class="text-[10px] font-bold opacity-60 uppercase mt-2 tracking-widest">Usimamizi wa Church Group Network</p>
+                    <p class="text-[10px] font-bold opacity-60 uppercase mt-2 tracking-widest text-style-sub">Usimamizi wa Church Group Network</p>
                 </div>
                 
-                <!-- Stats Section -->
                 <div class="flex gap-2">
                     <div class="bg-slate-100 dark:bg-slate-700 px-4 py-2 rounded-xl text-center">
                         <p class="text-[8px] font-bold uppercase opacity-60">Me</p>
@@ -96,6 +130,30 @@
             <p class="text-[9px] opacity-60">© 2026 TTD System | Designed by <span class="text-brandOrange text-[10px] font-bold">Pastor Aloyce</span></p>
         </div>
     </footer>
+
+    <script>
+        // UI Controls
+        function toggleSettings() {
+            document.getElementById('settingsPanel').classList.toggle('open');
+        }
+
+        function changeFont(fontFamily) {
+            document.getElementById('mainBody').style.fontFamily = fontFamily;
+        }
+
+        function changeSize(size) {
+            document.getElementById('mainBody').style.fontSize = size + 'px';
+            document.getElementById('sizeVal').innerText = size + 'px';
+        }
+
+        // Close settings when clicking outside
+        window.onclick = function(event) {
+            const panel = document.getElementById('settingsPanel');
+            if (!event.target.closest('#settingsPanel') && !event.target.closest('button[onclick="toggleSettings()"]')) {
+                panel.classList.remove('open');
+            }
+        }
+    </script>
 
     <!-- FIREBASE INTEGRATION -->
     <script type="module">
@@ -157,7 +215,7 @@
                 <div class="cgn-card shadow-lg mb-6 transition-all duration-300">
                     <div class="trigger-area p-6 flex items-center gap-4 cursor-pointer hover:bg-orange-50 dark:hover:bg-slate-800" onclick="this.parentElement.classList.toggle('active')">
                         <div class="text-3xl bg-brandBlue/10 p-3 rounded-2xl">${info.emoji}</div>
-                        <div class="flex-1">
+                        <div class="flex-1 text-inherit">
                             <h3 class="font-black text-lg text-brandBlue dark:text-white uppercase leading-tight">${kituoName}</h3>
                             <div class="flex gap-2 mt-1">
                                 <span class="text-[9px] font-black bg-brandOrange/10 text-brandOrange px-2 py-0.5 rounded uppercase italic">ME: ${meCount}</span>
@@ -184,8 +242,8 @@
                                             <p class="text-[11px] font-bold text-slate-700 dark:text-slate-300">${s.phone || '---'}</p>
                                         </div>
                                         <div class="flex gap-2">
-                                            <a href="sms:${s.phone}" class="bg-brandOrange/10 p-2 rounded-lg text-brandOrange hover:bg-brandOrange hover:text-white transition-colors" title="Tuma SMS">✉️</a>
-                                            <a href="tel:${s.phone}" class="bg-brandBlue/10 p-2 rounded-lg text-brandBlue dark:text-blue-300 hover:bg-brandBlue hover:text-white transition-colors" title="Piga Simu">📞</a>
+                                            <a href="sms:${s.phone}" class="bg-brandOrange/10 p-2 rounded-lg text-brandOrange hover:bg-brandOrange hover:text-white transition-colors">✉️</a>
+                                            <a href="tel:${s.phone}" class="bg-brandBlue/10 p-2 rounded-lg text-brandBlue dark:text-blue-300 hover:bg-brandBlue hover:text-white transition-colors">📞</a>
                                         </div>
                                     </div>
                                 </div>
