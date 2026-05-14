@@ -24,16 +24,12 @@
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
         .expandable-content { max-height: 0; overflow: hidden; transition: all 0.5s ease-in-out; opacity: 0; }
-        .active > .expandable-content { max-height: 3000px; opacity: 1; padding-bottom: 20px; }
+        .active > .expandable-content { max-height: 5000px; opacity: 1; padding-bottom: 20px; }
         .rotate-icon { transition: transform 0.3s ease; }
         .active > .trigger-area .rotate-icon { transform: rotate(180deg); }
         .cgn-card { border: 2px solid #1e40af; background: #ffffff; border-radius: 1.5rem; overflow: hidden; }
         .dark .cgn-card { background: #1e293b; border-color: #3b82f6; }
         .student-detail-card { border-left: 4px solid #f97316; }
-        
-        /* Mobile Menu Animation */
-        #mobile-menu { transition: transform 0.3s ease-in-out; }
-        .menu-open #mobile-menu { transform: translateX(0); }
     </style>
 </head>
 
@@ -45,199 +41,180 @@
                 <div class="bg-brandOrange p-2 rounded-lg">
                     <span class="text-white font-black text-sm">TTD</span>
                 </div>
-                <span class="font-black tracking-tighter uppercase text-lg">CGN NETWORK</span>
+                <span class="font-black tracking-tighter uppercase text-lg italic">CGN Network</span>
             </div>
-
-            <div class="hidden md:flex items-center gap-6 text-xs font-bold uppercase">
-                <a href="#" class="hover:text-brandOrange transition">Nyumbani</a>
-                <a href="#" class="hover:text-brandOrange transition">Masomo</a>
-                <a href="#" class="hover:text-brandOrange transition">Ripoti</a>
-                <a href="#" class="hover:text-brandOrange transition text-brandOrange">Portal</a>
-                <button onclick="document.documentElement.classList.toggle('dark')" class="text-lg ml-4">🌓</button>
-            </div>
-
-            <div class="md:hidden flex items-center gap-4">
-                <button onclick="document.documentElement.classList.toggle('dark')" class="text-lg">🌓</button>
-                <button id="menu-btn" class="text-2xl focus:outline-none">☰</button>
-            </div>
-        </div>
-
-        <div id="mobile-overlay" class="hidden fixed inset-0 bg-black/50 z-40" onclick="toggleMenu()"></div>
-        <div id="mobile-menu" class="fixed top-0 right-0 h-full w-64 bg-brandBlue z-50 translate-x-full p-8 shadow-2xl">
-            <button onclick="toggleMenu()" class="absolute top-4 right-4 text-2xl">✕</button>
-            <div class="flex flex-col gap-6 mt-12 text-sm font-bold uppercase">
-                <a href="#" onclick="toggleMenu()">Nyumbani</a>
-                <a href="#" onclick="toggleMenu()">Masomo</a>
-                <a href="#" onclick="toggleMenu()">Ripoti</a>
-                <a href="#" class="text-brandOrange" onclick="toggleMenu()">Portal</a>
-            </div>
+            <button onclick="document.documentElement.classList.toggle('dark')" class="text-lg">🌓</button>
         </div>
     </nav>
 
     <main class="pt-32 pb-20 px-6 max-w-4xl mx-auto min-h-screen">
-        <header class="mb-10 bg-white dark:bg-slate-800 p-6 rounded-3xl border-2 border-brandOrange shadow-lg">
-            <h1 class="text-2xl font-black text-brandBlue dark:text-blue-400 uppercase">
-                Msimamizi: <span id="userName" class="text-brandOrange">Pastor Aloyce</span>
-            </h1>
-            <p class="text-[10px] font-bold opacity-60 uppercase mt-2 tracking-widest">Mfumo wa Kuripoti Church Group Network</p>
+        <!-- Dashboard Header -->
+        <header class="mb-8 bg-white dark:bg-slate-800 p-6 rounded-3xl border-2 border-brandOrange shadow-lg">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <div>
+                    <h1 class="text-2xl font-black text-brandBlue dark:text-blue-400 uppercase leading-none">
+                        Msimamizi: <span class="text-brandOrange">Pastor Aloyce</span>
+                    </h1>
+                    <p class="text-[10px] font-bold opacity-60 uppercase mt-2 tracking-widest">Usimamizi wa Church Group Network</p>
+                </div>
+                
+                <!-- Stats Section -->
+                <div class="flex gap-2">
+                    <div class="bg-slate-100 dark:bg-slate-700 px-4 py-2 rounded-xl text-center">
+                        <p class="text-[8px] font-bold uppercase opacity-60">Me</p>
+                        <p id="totalMe" class="text-lg font-black text-brandBlue dark:text-blue-400">0</p>
+                    </div>
+                    <div class="bg-slate-100 dark:bg-slate-700 px-4 py-2 rounded-xl text-center">
+                        <p class="text-[8px] font-bold uppercase opacity-60">Ke</p>
+                        <p id="totalKe" class="text-lg font-black text-pink-500">0</p>
+                    </div>
+                    <div class="bg-brandBlue text-white px-5 py-2 rounded-xl text-center shadow-lg">
+                        <p class="text-[8px] font-bold uppercase opacity-70">Jumla</p>
+                        <p id="totalStudentsCount" class="text-lg font-black">0</p>
+                    </div>
+                </div>
+            </div>
         </header>
 
-        <section id="cgn-list" class="space-y-6"></section>
+        <!-- Search Filter -->
+        <div class="mb-8">
+            <input type="text" id="searchInput" onkeyup="filterStudents()" placeholder="Tafuta mwanafunzi kwa jina..." 
+                   class="w-full p-4 rounded-2xl border-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 focus:border-brandOrange outline-none transition-all font-bold text-sm">
+        </div>
+
+        <!-- CGN List Container -->
+        <section id="cgn-list" class="space-y-6">
+            <div class="text-center py-10">
+                <p class="animate-pulse font-bold text-slate-400 uppercase text-xs">Inapakia taarifa toka Firebase...</p>
+            </div>
+        </section>
     </main>
 
-    <footer class="bg-brandBlue text-white pt-16 pb-8 px-6 mt-20">
-        <div class="max-w-6xl mx-auto">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 border-b border-white/10 pb-12">
-                <div class="space-y-4">
-                    <div class="flex items-center gap-2">
-                        <div class="bg-brandOrange p-1.5 rounded shadow-lg">
-                            <span class="font-black text-xs">TTD</span>
-                        </div>
-                        <span class="font-bold text-xl uppercase tracking-tighter">The Timothy</span>
-                    </div>
-                    <p class="text-xs text-blue-100 leading-relaxed opacity-70">
-                        Tunajenga mfumo wa uanafunzi wenye matokeo, tukiongozwa na ubora na nidhamu ya kiroho.
-                    </p>
-                </div>
-
-                <div class="space-y-4">
-                    <h4 class="font-black text-brandOrange uppercase text-sm">Wasiliana Nasi</h4>
-                    <div class="space-y-3">
-                        <a href="https://wa.me/255757344860" target="_blank" class="flex items-center gap-3 group">
-                            <span class="bg-white/10 p-2 rounded-full group-hover:bg-green-500 transition">💬</span>
-                            <span class="text-xs font-bold">WhatsApp: 0757 344 860</span>
-                        </a>
-                        <div class="flex items-center gap-3">
-                            <span class="bg-white/10 p-2 rounded-full">📍</span>
-                            <span class="text-xs font-bold">Kisesa, Mwanza - Tanzania</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="space-y-4">
-                    <h4 class="font-black text-brandOrange uppercase text-sm">Tufuate Mtandaoni</h4>
-                    <div class="flex gap-4">
-                        <a href="#" class="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center hover:bg-blue-600 transition shadow-lg" title="Facebook">FB</a>
-                        <a href="#" class="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center hover:bg-red-600 transition shadow-lg" title="YouTube">YT</a>
-                        <a href="https://wa.me/255757344860" class="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center hover:bg-green-600 transition shadow-lg" title="WhatsApp">WA</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="text-center mt-8 space-y-2">
-                <p class="text-[10px] font-bold uppercase tracking-[0.4em] opacity-40 italic">Leading with Excellence</p>
-                <p class="text-[9px] opacity-60">© 2026 TTD System | Designed by <span class="text-brandOrange">Pastor Aloyce</span></p>
-            </div>
+    <footer class="bg-brandBlue text-white pt-10 pb-8 px-6 mt-20">
+        <div class="text-center">
+            <p class="text-[10px] font-bold uppercase tracking-[0.4em] opacity-40 italic mb-2">Leading with Excellence</p>
+            <p class="text-[9px] opacity-60">© 2026 TTD System | Designed by <span class="text-brandOrange text-[10px] font-bold">Pastor Aloyce</span></p>
         </div>
     </footer>
 
-    <script>
-        // Data ya CGN
-        const cgnData = [
-            {
-                center: "Kituo kwa Mama Bhoke",
-                leaders: "Mama Bhoke na Bro Lazaro",
-                emoji: "🏠",
-                students: Array.from({length: 12}, (_, i) => ({ 
-                    name: `Mwana CGN ${i+1}`, 
-                    phone: `0712-000-10${i+1}`, 
-                    gender: i % 2 === 0 ? "Mme" : "Mke",
-                    status: "Kimasomo" 
-                }))
-            },
-            {
-                center: "Kituo kwa Mama Gift",
-                leaders: "Mama Gift na Bro Michael",
-                emoji: "🌸",
-                students: Array.from({length: 12}, (_, i) => ({ 
-                    name: `Mwana CGN ${i+1}`, 
-                    phone: `0754-000-20${i+1}`, 
-                    gender: i % 2 === 0 ? "Mme" : "Mke",
-                    status: "Kimasomo" 
-                }))
-            },
-            {
-                center: "Kituo cha Kanisa",
-                leaders: "Mama Martina na Madam Aponya",
-                emoji: "⛪",
-                students: Array.from({length: 12}, (_, i) => ({ 
-                    name: `Mwana CGN ${i+1}`, 
-                    phone: `0788-000-30${i+1}`, 
-                    gender: i % 2 === 0 ? "Mme" : "Mke",
-                    status: "Kimasomo" 
-                }))
-            },
-            {
-                center: "Kituo cha Online",
-                leaders: "Bro Msukuma",
-                emoji: "🌐",
-                students: Array.from({length: 12}, (_, i) => ({ 
-                    name: `Mwana CGN ${i+1}`, 
-                    phone: `WhatsApp Link`, 
-                    gender: i % 2 === 0 ? "Mme" : "Mke",
-                    status: "Kimasomo" 
-                }))
-            }
-        ];
+    <!-- FIREBASE INTEGRATION -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
+        import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
 
-        // Mobile Menu Logic
-        const menuBtn = document.getElementById('menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const overlay = document.getElementById('mobile-overlay');
+        const firebaseConfig = {
+            apiKey: "AIzaSyCv01cdwWFqeDcvMAkILY3K4G8yKJWwL6k",
+            authDomain: "pastoraloyce-3530f.firebaseapp.com",
+            projectId: "pastoraloyce-3530f",
+            storageBucket: "pastoraloyce-3530f.firebasestorage.app",
+            messagingSenderId: "978341477941",
+            appId: "1:978341477941:web:289e3b0671f00e52907b7c"
+        };
 
-        function toggleMenu() {
-            document.body.classList.toggle('menu-open');
-            mobileMenu.classList.toggle('translate-x-full');
-            overlay.classList.toggle('hidden');
-        }
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
 
-        menuBtn.addEventListener('click', toggleMenu);
+        const kituoInfo = {
+            "Kituo kwa Mama Bhoke": { leaders: "Mama Bhoke na Bro Lazaro", emoji: "🏠" },
+            "Kituo kwa Mama Gift": { leaders: "Mama Gift na Bro Michael", emoji: "🌸" },
+            "Kituo cha Kanisa": { leaders: "Mama Martina na Madam Aponya", emoji: "⛪" },
+            "Kituo cha Online": { leaders: "Bro Msukuma", emoji: "🌐" }
+        };
 
-        function buildCGN() {
+        onSnapshot(collection(db, "wanafunzi"), (snapshot) => {
+            const wanafunzi = [];
+            snapshot.forEach((doc) => {
+                wanafunzi.push({ id: doc.id, ...doc.data() });
+            });
+
+            document.getElementById('totalStudentsCount').innerText = wanafunzi.length;
+            document.getElementById('totalMe').innerText = wanafunzi.filter(s => s.gender === 'Mme' || s.gender === 'ME').length;
+            document.getElementById('totalKe').innerText = wanafunzi.filter(s => s.gender === 'Mke' || s.gender === 'KE').length;
+
+            const grouped = wanafunzi.reduce((acc, curr) => {
+                const center = curr.cgn_center || "Bila Kituo";
+                if (!acc[center]) acc[center] = [];
+                acc[center].push(curr);
+                return acc;
+            }, {});
+
+            renderUI(grouped);
+        });
+
+        function renderUI(groupedData) {
             const container = document.getElementById('cgn-list');
-            container.innerHTML = cgnData.map(group => `
-                <div class="cgn-card shadow-lg">
-                    <div class="trigger-area p-6 flex items-center gap-4 cursor-pointer hover:bg-orange-50 dark:hover:bg-slate-800" onclick="toggleAccordion(this.parentElement)">
-                        <div class="text-3xl bg-brandBlue/10 p-3 rounded-2xl">${group.emoji}</div>
+            container.innerHTML = "";
+
+            Object.keys(groupedData).forEach(kituoName => {
+                const wanafunziKituoni = groupedData[kituoName];
+                const info = kituoInfo[kituoName] || { leaders: "Haijajulikana", emoji: "📍" };
+                
+                const meCount = wanafunziKituoni.filter(s => s.gender === 'Mme' || s.gender === 'ME').length;
+                const keCount = wanafunziKituoni.filter(s => s.gender === 'Mke' || s.gender === 'KE').length;
+                const kituoTotal = wanafunziKituoni.length;
+
+                const cardHTML = `
+                <div class="cgn-card shadow-lg mb-6 transition-all duration-300">
+                    <div class="trigger-area p-6 flex items-center gap-4 cursor-pointer hover:bg-orange-50 dark:hover:bg-slate-800" onclick="this.parentElement.classList.toggle('active')">
+                        <div class="text-3xl bg-brandBlue/10 p-3 rounded-2xl">${info.emoji}</div>
                         <div class="flex-1">
-                            <h3 class="font-black text-lg text-brandBlue dark:text-white uppercase leading-tight">${group.center}</h3>
-                            <p class="text-[10px] font-bold text-brandOrange tracking-widest uppercase">Viongozi: ${group.leaders}</p>
+                            <h3 class="font-black text-lg text-brandBlue dark:text-white uppercase leading-tight">${kituoName}</h3>
+                            <div class="flex gap-2 mt-1">
+                                <span class="text-[9px] font-black bg-brandOrange/10 text-brandOrange px-2 py-0.5 rounded uppercase italic">ME: ${meCount}</span>
+                                <span class="text-[9px] font-black bg-brandBlue/10 text-brandBlue dark:text-blue-300 px-2 py-0.5 rounded uppercase italic">KE: ${keCount}</span>
+                                <span class="text-[9px] font-black bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300 px-2 py-0.5 rounded uppercase italic">Jumla: ${kituoTotal}</span>
+                            </div>
                         </div>
                         <div class="rotate-icon text-brandBlue font-bold">🔽</div>
                     </div>
                     
                     <div class="expandable-content bg-slate-100/50 dark:bg-slate-900/50 px-4 md:px-6">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-                            ${group.students.map(s => `
-                                <div class="student-detail-card bg-white dark:bg-slate-800 p-4 rounded-xl shadow-sm">
+                            ${wanafunziKituoni.map(s => `
+                                <div class="student-card student-detail-card bg-white dark:bg-slate-800 p-4 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700" data-name="${s.name.toLowerCase()}">
                                     <div class="flex justify-between items-start mb-2">
                                         <h4 class="font-black text-sm text-brandBlue dark:text-blue-300 uppercase">${s.name}</h4>
-                                        <span class="text-[9px] bg-green-100 text-green-700 px-2 py-0.5 rounded font-bold uppercase">Active</span>
+                                        <span class="text-[10px] font-black ${s.gender === 'Mke' || s.gender === 'KE' ? 'text-pink-500' : 'text-blue-500'} uppercase">
+                                            ${s.gender === 'Mme' || s.gender === 'ME' ? '♂ ME' : '♀ KE'}
+                                        </span>
                                     </div>
-                                    <div class="grid grid-cols-3 gap-2">
-                                        <div>
-                                            <p class="text-[8px] font-bold opacity-50 uppercase italic">Simu</p>
-                                            <p class="text-[10px] font-bold text-slate-700 dark:text-slate-300">${s.phone}</p>
+                                    <div class="flex items-center gap-3">
+                                        <div class="flex-1">
+                                            <p class="text-[8px] font-bold opacity-50 uppercase italic tracking-tighter">Mawasiliano</p>
+                                            <p class="text-[11px] font-bold text-slate-700 dark:text-slate-300">${s.phone || '---'}</p>
                                         </div>
-                                        <div>
-                                            <p class="text-[8px] font-bold opacity-50 uppercase italic">Jinsi</p>
-                                            <p class="text-[10px] font-bold text-slate-700 dark:text-slate-300">${s.gender}</p>
-                                        </div>
-                                        <div>
-                                            <p class="text-[8px] font-bold opacity-50 uppercase italic">Hali</p>
-                                            <p class="text-[10px] font-bold text-slate-700 dark:text-slate-300">${s.status}</p>
+                                        <div class="flex gap-2">
+                                            <a href="sms:${s.phone}" class="bg-brandOrange/10 p-2 rounded-lg text-brandOrange hover:bg-brandOrange hover:text-white transition-colors" title="Tuma SMS">✉️</a>
+                                            <a href="tel:${s.phone}" class="bg-brandBlue/10 p-2 rounded-lg text-brandBlue dark:text-blue-300 hover:bg-brandBlue hover:text-white transition-colors" title="Piga Simu">📞</a>
                                         </div>
                                     </div>
                                 </div>
                             `).join('')}
                         </div>
                     </div>
-                </div>
-            `).join('');
+                </div>`;
+                container.innerHTML += cardHTML;
+            });
         }
+    </script>
 
-        function toggleAccordion(el) { el.classList.toggle('active'); }
-        buildCGN();
+    <script>
+        function filterStudents() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const cards = document.querySelectorAll('.student-card');
+            cards.forEach(card => {
+                const name = card.getAttribute('data-name');
+                if (name.includes(input)) {
+                    card.style.display = "block";
+                    card.closest('.cgn-card').classList.add('active');
+                } else {
+                    card.style.display = "none";
+                }
+            });
+            if(input === "") {
+                document.querySelectorAll('.cgn-card').forEach(c => c.classList.remove('active'));
+            }
+        }
     </script>
 </body>
 </html>
