@@ -9,6 +9,7 @@
     
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     colors: { brandBlue: '#1e40af', brandOrange: '#f97316' }
@@ -17,16 +18,15 @@
         }
     </script>
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; transition: background-color 0.3s, color 0.3s; }
         .absentee-card, .member-card { animation: slideIn 0.4s ease-out; }
         @keyframes slideIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         ::-webkit-scrollbar { width: 5px; }
         ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
     </style>
 </head>
-<body class="bg-slate-50 min-h-screen">
+<body class="bg-slate-50 dark:bg-slate-900 min-h-screen text-slate-900 dark:text-white" id="mainBody">
 
-    <!-- NAVIGATION -->
     <nav class="fixed w-full z-50 bg-brandBlue text-white shadow-xl px-6 py-4">
         <div class="max-w-6xl mx-auto flex justify-between items-center">
             <div class="flex items-center gap-3">
@@ -35,51 +35,57 @@
                 </div>
                 <span class="font-black tracking-tighter uppercase text-lg italic">Follow-up Portal</span>
             </div>
-            <div class="hidden md:flex items-center gap-6 text-[10px] font-black uppercase">
-                <a href="#registration" class="hover:text-brandOrange">Usajili</a>
-                <a href="#attendance" class="hover:text-brandOrange">Kuita Majina</a>
-                <a href="#tathmini" class="hover:text-brandOrange">Tathmini</a>
-                <a href="#followup" class="text-brandOrange">Ufuatiliaji</a>
+            
+            <div class="flex items-center gap-4">
+                <div class="hidden md:flex items-center gap-6 text-[10px] font-black uppercase">
+                    <a href="#registration" class="hover:text-brandOrange">Usajili</a>
+                    <a href="#attendance" class="hover:text-brandOrange">Kuita Majina</a>
+                    <a href="#tathmini" class="hover:text-brandOrange">Tathmini</a>
+                </div>
+                <div class="flex items-center gap-2 bg-white/10 p-1 rounded-lg">
+                    <button onclick="changeFontSize(-1)" class="px-2 text-xs font-bold">-A</button>
+                    <button onclick="changeFontSize(1)" class="px-2 text-xs font-bold">+A</button>
+                    <button onclick="toggleDarkMode()" class="p-1 rounded-full hover:bg-white/20">
+                        <svg id="themeIcon" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                    </button>
+                </div>
             </div>
         </div>
     </nav>
 
-    <main class="max-w-6xl mx-auto px-6 pt-28 pb-20">
+    <main class="max-w-6xl mx-auto px-6 pt-28 pb-20" id="contentArea">
         
-        <!-- 1. USAJILI & ORODHA YA WANACHAMA -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
-            <!-- Form -->
             <section id="registration" class="lg:col-span-1">
-                <div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-100">
+                <div class="bg-white dark:bg-slate-800 rounded-3xl shadow-xl overflow-hidden border border-slate-100 dark:border-slate-700">
                     <div class="bg-brandBlue p-5 text-center text-white border-b-4 border-brandOrange">
                         <h2 class="text-sm font-black uppercase tracking-tight">Sajili Mwana CGN Mpya</h2>
                     </div>
                     <form id="registrationForm" class="p-6 space-y-4">
-                        <input type="text" id="name" required class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-sm" placeholder="Jina Kamili">
+                        <input type="text" id="name" required class="w-full p-3 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-xl text-sm" placeholder="Jina Kamili">
                         <div class="grid grid-cols-2 gap-4">
-                            <select id="gender" class="p-3 bg-slate-50 border border-slate-200 rounded-xl text-[11px] font-bold">
+                            <select id="gender" class="p-3 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-xl text-[11px] font-bold">
                                 <option value="Mme">Mme</option>
                                 <option value="Mke">Mke</option>
                             </select>
-                            <input type="tel" id="phone" required class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-sm" placeholder="07xx">
+                            <input type="tel" id="phone" required class="w-full p-3 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-xl text-sm" placeholder="07xx">
                         </div>
-                        <select id="center" required class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-[11px] font-bold">
+                        <select id="center" required class="w-full p-3 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-xl text-[11px] font-bold">
                             <option value="Kituo kwa Mama Bhoke">Kituo kwa Mama Bhoke</option>
                             <option value="Kituo kwa Mama Gift">Kituo kwa Mama Gift</option>
                             <option value="Kituo cha Kanisa">Kituo cha Kanisa</option>
                             <option value="Kituo cha Online">Kituo cha Online</option>
                         </select>
-                        <input type="email" id="email" required class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-sm" placeholder="Email">
-                        <button type="submit" id="submitBtn" class="w-full bg-brandOrange text-white font-black py-4 rounded-xl shadow-lg uppercase text-[10px]">Hifadhi Mwanafunzi</button>
+                        <input type="email" id="email" required class="w-full p-3 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-xl text-sm" placeholder="Email">
+                        <button type="submit" class="w-full bg-brandOrange text-white font-black py-4 rounded-xl shadow-lg uppercase text-[10px]">Hifadhi Mwanafunzi</button>
                     </form>
                 </div>
             </section>
 
-            <!-- Orodha ya Waliosajiliwa -->
             <section class="lg:col-span-2 space-y-4">
-                <div class="flex justify-between items-center bg-white p-4 rounded-2xl shadow-sm border border-slate-100">
-                    <h2 class="text-[11px] font-black uppercase text-brandBlue italic">Orodha ya Usajili</h2>
-                    <select id="memberFilter" onchange="filterMemberList()" class="p-2 bg-slate-100 border-none rounded-lg text-[9px] font-black uppercase">
+                <div class="flex justify-between items-center bg-white dark:bg-slate-800 p-4 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700">
+                    <h2 class="text-[11px] font-black uppercase text-brandBlue dark:text-brandOrange italic">Orodha ya Usajili</h2>
+                    <select id="memberFilter" onchange="filterMemberList()" class="p-2 bg-slate-100 dark:bg-slate-700 border-none rounded-lg text-[9px] font-black uppercase">
                         <option value="All">Vituo Vyote</option>
                         <option value="Kituo kwa Mama Bhoke">Mama Bhoke</option>
                         <option value="Kituo kwa Mama Gift">Mama Gift</option>
@@ -87,22 +93,18 @@
                         <option value="Kituo cha Online">Online</option>
                     </select>
                 </div>
-                <div id="membersList" class="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-[450px] overflow-y-auto pr-2">
-                    <!-- Data itajaa hapa -->
-                </div>
+                <div id="membersList" class="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-[450px] overflow-y-auto pr-2"></div>
             </section>
         </div>
 
-        <!-- 2. SEHEMU YA KUITA MAJINA -->
         <section id="attendance" class="mb-16">
-            <div class="bg-white p-8 rounded-[2.5rem] shadow-xl border border-slate-100">
+            <div class="bg-white dark:bg-slate-800 p-8 rounded-[2.5rem] shadow-xl border border-slate-100 dark:border-slate-700">
                 <div class="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
                     <div>
-                        <h2 class="text-xl font-black text-brandBlue uppercase tracking-tighter">Ita Majina</h2>
-                        <!-- TAREHE YA KUITA MAJINA -->
-                        <p id="attendanceDateDisplay" class="text-[10px] font-bold text-brandOrange uppercase italic"></p>
+                        <h2 class="text-xl font-black text-brandBlue dark:text-brandOrange uppercase tracking-tighter">Ita Majina</h2>
+                        <p id="attendanceDateDisplay" class="text-[10px] font-bold text-brandOrange dark:text-slate-400 uppercase italic"></p>
                     </div>
-                    <select id="callFilter" onchange="filterAttendanceGrid()" class="p-3 bg-slate-100 border-none rounded-xl text-[10px] font-black uppercase">
+                    <select id="callFilter" onchange="filterAttendanceGrid()" class="p-3 bg-slate-100 dark:bg-slate-700 border-none rounded-xl text-[10px] font-black uppercase">
                         <option value="All">Vituo Vyote</option>
                         <option value="Kituo kwa Mama Bhoke">Mama Bhoke</option>
                         <option value="Kituo kwa Mama Gift">Mama Gift</option>
@@ -117,13 +119,36 @@
             </div>
         </section>
 
-        <!-- 3. TATHMINI -->
         <section id="tathmini" class="mb-16 hidden">
             <div class="bg-brandBlue rounded-[2.5rem] p-8 text-white shadow-2xl">
                 <div class="flex justify-between items-center mb-8">
                     <h2 class="text-xl font-black uppercase tracking-tighter italic">Tathmini ya Leo</h2>
                     <span id="leoDate" class="text-[10px] bg-white/20 px-3 py-1 rounded-full font-bold">--/--/----</span>
                 </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    <div class="bg-white/10 p-5 rounded-3xl border border-white/20">
+                        <h4 class="text-[10px] font-black uppercase mb-3 text-brandOrange">Vituo Vyote (Jumla)</h4>
+                        <div class="flex justify-between items-center">
+                            <div class="text-center">
+                                <p class="text-[9px] opacity-60 uppercase">Wanaume (Me)</p>
+                                <p id="totalMe" class="text-2xl font-black">0</p>
+                            </div>
+                            <div class="text-center border-x border-white/10 px-6">
+                                <p class="text-[9px] opacity-60 uppercase">Wanawake (Ke)</p>
+                                <p id="totalKe" class="text-2xl font-black">0</p>
+                            </div>
+                            <div class="text-center">
+                                <p class="text-[9px] opacity-60 uppercase">Jumla</p>
+                                <p id="grandTotal" class="text-2xl font-black text-brandOrange">0</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="centerWiseSummary" class="bg-white/10 p-5 rounded-3xl border border-white/20 overflow-y-auto max-h-[150px] space-y-2">
+                        <h4 class="text-[10px] font-black uppercase mb-2 text-brandOrange">Uchambuzi wa Kila Kituo</h4>
+                    </div>
+                </div>
+
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div class="bg-white/10 p-6 rounded-3xl border border-white/10 backdrop-blur-sm text-center">
                         <p class="text-[10px] uppercase font-black mb-2 opacity-70">Mahudhurio</p>
@@ -134,11 +159,11 @@
                     </div>
                     <div class="md:col-span-2 grid grid-cols-2 gap-4">
                         <div class="bg-white/10 p-4 rounded-2xl flex items-center gap-4">
-                            <div class="bg-green-500 w-10 h-10 rounded-full flex items-center justify-center font-black italic text-xs text-white shadow-lg">W</div>
+                            <div class="bg-green-500 w-10 h-10 rounded-full flex items-center justify-center font-black italic text-xs text-white">W</div>
                             <div><p class="text-[10px] uppercase opacity-70">Waliopo</p><p id="countPresent" class="text-xl font-black">0</p></div>
                         </div>
                         <div class="bg-white/10 p-4 rounded-2xl flex items-center gap-4">
-                            <div class="bg-red-500 w-10 h-10 rounded-full flex items-center justify-center font-black italic text-xs text-white shadow-lg">H</div>
+                            <div class="bg-red-500 w-10 h-10 rounded-full flex items-center justify-center font-black italic text-xs text-white">H</div>
                             <div><p class="text-[10px] uppercase opacity-70">Wasiokuwepo</p><p id="countAbsent" class="text-xl font-black">0</p></div>
                         </div>
                     </div>
@@ -146,20 +171,27 @@
             </div>
         </section>
 
-        <!-- 4. UFUATILIAJI -->
         <section id="followup" class="space-y-6">
-            <div class="flex items-center gap-4">
-                <h2 class="text-xl font-black text-red-600 uppercase tracking-tighter leading-none">Ufuatiliaji</h2>
-                <div class="h-[2px] flex-grow bg-red-100"></div>
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div class="flex items-center gap-4 flex-grow">
+                    <h2 class="text-xl font-black text-red-600 uppercase tracking-tighter leading-none">Ufuatiliaji</h2>
+                    <div class="h-[2px] flex-grow bg-red-100"></div>
+                </div>
+                <select id="followUpFilter" onchange="applyFollowUpFilter()" class="p-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-[10px] font-black uppercase">
+                    <option value="All">Vituo Vyote</option>
+                    <option value="Kituo kwa Mama Bhoke">Mama Bhoke</option>
+                    <option value="Kituo kwa Mama Gift">Mama Gift</option>
+                    <option value="Kituo cha Kanisa">Kanisa</option>
+                    <option value="Kituo cha Online">Online</option>
+                </select>
             </div>
             <div id="followUpGrid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div class="col-span-full bg-white p-12 text-center rounded-3xl border-2 border-dashed border-slate-200 text-slate-400 font-bold text-sm uppercase italic">Ita majina kuona wanaohitaji ufuatiliaji.</div>
+                <div class="col-span-full bg-white dark:bg-slate-800 p-12 text-center rounded-3xl border-2 border-dashed border-slate-200 dark:border-slate-700 text-slate-400 font-bold text-sm uppercase italic">Ita majina kuona wanaohitaji ufuatiliaji.</div>
             </div>
         </section>
 
     </main>
 
-    <!-- FOOTER -->
     <footer class="bg-slate-900 text-white py-12 px-6 mt-10">
         <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10">
             <div>
@@ -178,14 +210,14 @@
                 <a href="#tathmini" class="block text-slate-400 hover:text-white">Ripoti za Leo</a>
             </div>
             <div class="text-[10px] font-bold text-slate-500 uppercase tracking-widest text-center md:text-right">
-                &copy; 2024 TTD Ministry. <br> Powered by Technology Team.
+                &copy; 2026 TTD Ministry. <br> Powered by Technology Team.
             </div>
         </div>
     </footer>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
-        import { getFirestore, doc, setDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+        import { getFirestore, doc, setDoc, getDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyCv01cdwWFqeDcvMAkILY3K4G8yKJWwL6k",
@@ -200,35 +232,128 @@
         const db = getFirestore(app);
         let wanafunziWote = [];
         let dataYaLeo = [];
+        const TAREHE_LEO = new Date().toISOString().split('T')[0];
+
+        window.toggleDarkMode = () => {
+            document.documentElement.classList.toggle('dark');
+            localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+        }
+
+        window.changeFontSize = (delta) => {
+            const currentSize = parseFloat(window.getComputedStyle(document.body).fontSize);
+            document.body.style.fontSize = (currentSize + delta) + "px";
+        }
 
         async function pakuaData() {
             const querySnapshot = await getDocs(collection(db, "wanafunzi"));
             wanafunziWote = [];
             querySnapshot.forEach(doc => wanafunziWote.push({ id: doc.id, ...doc.data() }));
-            renderAttendanceGrid(wanafunziWote);
+            
+            const docRef = doc(db, "mahudhurio", TAREHE_LEO);
+            const docSnap = await getDoc(docRef);
+            
+            let savedAttendance = {};
+            if (docSnap.exists()) {
+                savedAttendance = docSnap.data().records || {};
+                dataYaLeo = Object.values(savedAttendance);
+            }
+
+            renderAttendanceGrid(wanafunziWote, savedAttendance);
             renderMembersList(wanafunziWote);
-            // Weka tarehe ya kuita majina ya leo
+            
+            if(dataYaLeo.length > 0) {
+                sasishaDashboard();
+                applyFollowUpFilter();
+                document.getElementById('tathmini').classList.remove('hidden');
+            }
+            
             document.getElementById('attendanceDateDisplay').innerText = "Leo ni: " + new Date().toLocaleDateString('sw-TZ', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
         }
 
-        // Render Orodha ya Wanachama (Ina TAREHE YA USAJILI)
-        function renderMembersList(data) {
+        function renderAttendanceGrid(data, saved = {}) {
+            const grid = document.getElementById('attendanceGrid');
+            grid.innerHTML = "";
+            data.forEach(w => {
+                const status = saved[w.id] ? saved[w.id].status : 'Hayupo';
+                grid.innerHTML += `
+                    <div class="attendance-card bg-white dark:bg-slate-700 p-4 rounded-2xl border border-slate-100 dark:border-slate-600 shadow-sm transition hover:shadow-md" data-center="${w.cgn_center}">
+                        <h4 class="font-black text-brandBlue dark:text-brandOrange uppercase text-[10px] mb-2">${w.name}</h4>
+                        <select class="att-status w-full p-2 bg-slate-50 dark:bg-slate-800 border dark:border-slate-600 rounded-lg text-[10px] font-bold" 
+                                data-id="${w.id}" data-name="${w.name}" data-phone="${w.phone}" data-center="${w.cgn_center}" data-gender="${w.gender}">
+                            <option value="Amehudhuria" ${status === 'Amehudhuria' ? 'selected' : ''}>Amehudhuria</option>
+                            <option value="Hayupo" ${status === 'Hayupo' ? 'selected' : ''}>Hayupo</option>
+                            <option value="Mgonjwa" ${status === 'Mgonjwa' ? 'selected' : ''}>Mgonjwa</option>
+                            <option value="Amesafiri" ${status === 'Amesafiri' ? 'selected' : ''}>Amesafiri</option>
+                            <option value="Ruhusa" ${status === 'Ruhusa' ? 'selected' : ''}>Ruhusa</option>
+                        </select>
+                    </div>`;
+            });
+        }
+
+        window.calculateAndSave = async () => {
+            const selects = document.querySelectorAll('.att-status');
+            const attendanceMap = {};
+            dataYaLeo = [];
+            
+            selects.forEach(s => {
+                const record = { name: s.dataset.name, status: s.value, phone: s.dataset.phone, center: s.dataset.center, gender: s.dataset.gender };
+                attendanceMap[s.dataset.id] = record;
+                dataYaLeo.push(record);
+            });
+
+            await setDoc(doc(db, "mahudhurio", TAREHE_LEO), { records: attendanceMap, updatedAt: new Date().toISOString() });
+            
+            alert("Hongera kwa kuita majina!");
+            sasishaDashboard();
+            applyFollowUpFilter();
+            document.getElementById('tathmini').classList.remove('hidden');
+        }
+
+        function sasishaDashboard() {
+            const total = dataYaLeo.length;
+            const waliopo = dataYaLeo.filter(d => d.status === 'Amehudhuria');
+            
+            const me = waliopo.filter(d => d.gender === 'Mme').length;
+            const ke = waliopo.filter(d => d.gender === 'Mke').length;
+
+            document.getElementById('totalMe').innerText = me;
+            document.getElementById('totalKe').innerText = ke;
+            document.getElementById('grandTotal').innerText = waliopo.length;
+
+            const centers = [...new Set(dataYaLeo.map(d => d.center))];
+            const summaryBox = document.getElementById('centerWiseSummary');
+            summaryBox.innerHTML = '<h4 class="text-[10px] font-black uppercase mb-2 text-brandOrange">Uchambuzi wa Kila Kituo</h4>';
+            
+            centers.forEach(c => {
+                const cWaliopo = waliopo.filter(d => d.center === c);
+                const cMe = cWaliopo.filter(d => d.gender === 'Mme').length;
+                const cKe = cWaliopo.filter(d => d.gender === 'Mke').length;
+                summaryBox.innerHTML += `
+                    <div class="flex justify-between items-center bg-black/10 p-2 rounded-lg text-[9px] font-bold">
+                        <span>${c}</span>
+                        <span>Me: ${cMe} | Ke: ${cKe} | Juml: ${cWaliopo.length}</span>
+                    </div>`;
+            });
+
+            const asilimia = total > 0 ? Math.round((waliopo.length / total) * 100) : 0;
+            document.getElementById('totalPercentage').innerText = asilimia + "%";
+            document.getElementById('progressBar').style.width = asilimia + "%";
+            document.getElementById('countPresent').innerText = waliopo.length;
+            document.getElementById('countAbsent').innerText = total - waliopo.length;
+            document.getElementById('leoDate').innerText = new Date().toLocaleDateString('sw-TZ');
+        }
+
+        window.renderMembersList = (data) => {
             const container = document.getElementById('membersList');
             container.innerHTML = "";
-            if(data.length === 0) {
-                container.innerHTML = "<p class='text-xs italic text-slate-400 p-4'>Hakuna wanachama waliosajiliwa bado.</p>";
-                return;
-            }
             data.forEach(w => {
-                const regDate = w.registeredAt ? new Date(w.registeredAt).toLocaleDateString('sw-TZ') : '---';
                 container.innerHTML += `
-                    <div class="member-card bg-white p-4 rounded-xl border border-slate-100 shadow-sm flex justify-between items-center">
+                    <div class="member-card bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-100 dark:border-slate-700 shadow-sm flex justify-between items-center" data-center="${w.cgn_center}">
                         <div>
-                            <h4 class="text-[10px] font-black text-brandBlue uppercase">${w.name}</h4>
-                            <p class="text-[8px] text-slate-400 font-bold uppercase">Msajiliwa: ${regDate}</p>
-                            <p class="text-[9px] text-slate-500 font-bold italic">${w.cgn_center}</p>
+                            <h4 class="text-[10px] font-black text-brandBlue dark:text-brandOrange uppercase">${w.name}</h4>
+                            <p class="text-[8px] text-slate-400 font-bold">Kituo: ${w.cgn_center}</p>
                         </div>
-                        <a href="tel:${w.phone}" class="bg-slate-100 p-2 rounded-lg text-brandBlue font-black text-[9px] hover:bg-brandOrange hover:text-white transition-colors">
+                        <a href="tel:${w.phone}" class="bg-slate-100 dark:bg-slate-700 p-2 rounded-lg text-brandBlue dark:text-white font-black text-[9px]">
                             ${w.phone}
                         </a>
                     </div>`;
@@ -237,84 +362,56 @@
 
         window.filterMemberList = () => {
             const val = document.getElementById('memberFilter').value;
-            renderMembersList(val === 'All' ? wanafunziWote : wanafunziWote.filter(w => w.cgn_center === val));
-        }
-
-        function renderAttendanceGrid(data) {
-            const grid = document.getElementById('attendanceGrid');
-            grid.innerHTML = "";
-            data.forEach(w => {
-                grid.innerHTML += `
-                    <div class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm transition hover:shadow-md">
-                        <h4 class="font-black text-brandBlue uppercase text-[10px] mb-2">${w.name}</h4>
-                        <select class="att-status w-full p-2 bg-slate-50 border rounded-lg text-[10px] font-bold" 
-                                data-id="${w.id}" data-name="${w.name}" data-phone="${w.phone}" data-center="${w.cgn_center}">
-                            <option value="Amehudhuria">Amehudhuria</option>
-                            <option value="Hayupo" selected>Hayupo</option>
-                            <option value="Mgonjwa">Mgonjwa</option>
-                            <option value="Amesafiri">Amesafiri</option>
-                            <option value="Ruhusa">Ruhusa</option>
-                        </select>
-                    </div>`;
-            });
-        }
-
-        window.calculateAndSave = () => {
-            const selects = document.querySelectorAll('.att-status');
-            dataYaLeo = [];
-            selects.forEach(s => {
-                dataYaLeo.push({ name: s.dataset.name, status: s.value, phone: s.dataset.phone, center: s.dataset.center });
-            });
-            sasishaDashboard();
-            renderFollowUpGrid(dataYaLeo.filter(d => d.status !== 'Amehudhuria'));
-            document.getElementById('tathmini').classList.remove('hidden');
-            window.scrollTo({ top: document.getElementById('tathmini').offsetTop - 100, behavior: 'smooth' });
-        }
-
-        function sasishaDashboard() {
-            const total = dataYaLeo.length;
-            const waliopo = dataYaLeo.filter(d => d.status === 'Amehudhuria').length;
-            const asilimia = total > 0 ? Math.round((waliopo / total) * 100) : 0;
-            document.getElementById('totalPercentage').innerText = asilimia + "%";
-            document.getElementById('progressBar').style.width = asilimia + "%";
-            document.getElementById('countPresent').innerText = waliopo;
-            document.getElementById('countAbsent').innerText = total - waliopo;
-            document.getElementById('leoDate').innerText = new Date().toLocaleDateString('sw-TZ');
-        }
-
-        // Render Ufuatiliaji (Ina Kitufe cha PIGA SIMU & SMS)
-        function renderFollowUpGrid(absentees) {
-            const grid = document.getElementById('followUpGrid');
-            if(absentees.length === 0) {
-                grid.innerHTML = `<div class="col-span-full text-center p-10 bg-green-50 text-green-600 font-bold rounded-2xl">Kila mtu amehudhuria leo!</div>`;
-                return;
-            }
-            grid.innerHTML = "";
-            absentees.forEach(a => {
-                grid.innerHTML += `
-                    <div class="absentee-card bg-white p-5 rounded-3xl border-l-8 border-brandOrange shadow-md flex flex-col justify-between">
-                        <div>
-                            <div class="flex justify-between items-start">
-                                <span class="text-[9px] font-black px-2 py-1 bg-slate-100 rounded uppercase text-slate-500">${a.center}</span>
-                                <span class="text-[9px] font-black uppercase text-red-600">${a.status}</span>
-                            </div>
-                            <h3 class="text-sm font-black text-brandBlue uppercase mt-3">${a.name}</h3>
-                            <p class="text-xs font-bold text-slate-400 mt-1">${a.phone}</p>
-                        </div>
-                        <div class="mt-6 flex gap-2">
-                            <!-- KITUFE CHA PIGA SIMU -->
-                            <a href="tel:${a.phone}" class="flex-1 bg-brandBlue text-white text-center py-3 rounded-xl text-[9px] font-black uppercase">Piga Simu</a>
-                            <!-- KITUFE CHA SMS -->
-                            <a href="sms:${a.phone}?body=Habari ${a.name}, tumekumiss CGN leo. Karibu." class="flex-1 bg-slate-800 text-white text-center py-3 rounded-xl text-[9px] font-black uppercase">Tuma SMS</a>
-                        </div>
-                    </div>`;
+            const cards = document.querySelectorAll('.member-card');
+            cards.forEach(c => {
+                c.style.display = (val === 'All' || c.dataset.center === val) ? 'flex' : 'none';
             });
         }
 
         window.filterAttendanceGrid = () => {
             const val = document.getElementById('callFilter').value;
-            renderAttendanceGrid(val === 'All' ? wanafunziWote : wanafunziWote.filter(w => w.cgn_center === val));
+            const cards = document.querySelectorAll('.attendance-card');
+            cards.forEach(c => {
+                c.style.display = (val === 'All' || c.dataset.center === val) ? 'block' : 'none';
+            });
         }
+
+        window.applyFollowUpFilter = () => {
+            const filterVal = document.getElementById('followUpFilter').value;
+            const absentees = dataYaLeo.filter(d => d.status !== 'Amehudhuria');
+            const filtered = filterVal === 'All' ? absentees : absentees.filter(a => a.center === filterVal);
+            renderFollowUpGrid(filtered);
+        }
+
+        function renderFollowUpGrid(absentees) {
+            const grid = document.getElementById('followUpGrid');
+            if(absentees.length === 0) {
+                grid.innerHTML = `<div class="col-span-full text-center p-10 bg-green-50 dark:bg-green-900/20 text-green-600 font-bold rounded-2xl">Hakuna ufuatiliaji!</div>`;
+                return;
+            }
+            grid.innerHTML = "";
+            absentees.forEach(a => {
+                grid.innerHTML += `
+                    <div class="absentee-card bg-white dark:bg-slate-800 p-5 rounded-3xl border-l-8 border-brandOrange shadow-md flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start">
+                                <span class="text-[9px] font-black px-2 py-1 bg-slate-100 dark:bg-slate-700 rounded uppercase text-slate-500">${a.center}</span>
+                                <span class="text-[9px] font-black uppercase text-red-600">${a.status}</span>
+                            </div>
+                            <h3 class="text-sm font-black text-brandBlue dark:text-white uppercase mt-3">${a.name}</h3>
+                        </div>
+                        <div class="mt-6 flex gap-2">
+                            <a href="tel:${a.phone}" class="flex-1 bg-brandBlue text-white text-center py-3 rounded-xl text-[9px] font-black uppercase">Simu</a>
+                            <a href="sms:${a.phone}?body=Habari ${a.name}, tumekumiss CGN leo. Karibu." class="flex-1 bg-slate-800 text-white text-center py-3 rounded-xl text-[9px] font-black uppercase">SMS</a>
+                        </div>
+                    </div>`;
+            });
+        }
+
+        window.onload = () => {
+            if (localStorage.getItem('theme') === 'dark') document.documentElement.classList.add('dark');
+            pakuaData();
+        };
 
         const form = document.getElementById('registrationForm');
         form.addEventListener('submit', async (e) => {
@@ -325,15 +422,13 @@
                 gender: document.getElementById('gender').value,
                 phone: document.getElementById('phone').value,
                 cgn_center: document.getElementById('center').value,
-                registeredAt: new Date().toISOString() // TAREHE YA USAJILI
+                registeredAt: new Date().toISOString()
             };
             await setDoc(doc(db, "wanafunzi", email), data);
             alert("Mwanafunzi amesajiliwa!");
             form.reset();
             pakuaData();
         });
-
-        window.onload = pakuaData;
     </script>
 </body>
 </html>
