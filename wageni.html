@@ -593,6 +593,16 @@
             localStorage.setItem('dcc_guest_session', 'active');
             localStorage.setItem('dcc_guest_email', email);
             
+            // Clear input fields immediately so they don't stay pre-filled on logout
+            document.getElementById('loginEmail').value = "";
+            document.getElementById('loginPassword').value = "";
+            
+            // Reset submit button state
+            const btn = document.getElementById('loginSubmitBtn');
+            const btnText = document.getElementById('loginBtnText');
+            btnText.innerText = "Ingia Kwenye Mfumo";
+            btn.disabled = false;
+
             Swal.fire({
                 icon: 'success',
                 title: 'Karibu DCC Kisesa!',
@@ -626,6 +636,8 @@
                 }
             } else {
                 document.getElementById('loginScreen').classList.remove('hidden');
+                // Explicitly sign out from firebase auth on load if there's no active session
+                auth.signOut().catch(() => {});
             }
         });
 
@@ -664,7 +676,14 @@
         function MalizaKazi() {
             localStorage.removeItem('dcc_guest_session');
             localStorage.removeItem('dcc_active_portal');
-            location.reload();
+            
+            // Force Firebase Auth state destruction to prevent auto-login on same device
+            auth.signOut().then(() => {
+                location.reload();
+            }).catch((err) => {
+                console.warn("Sign-out error, reloading anyway:", err);
+                location.reload();
+            });
         }
 
         // --- FONT RESIZER & DARK MODE toggles ---
@@ -826,6 +845,7 @@
             document.getElementById('registration').scrollIntoView({ behavior: 'smooth' });
         }
 
+        // --- GHAIRI ACTIONS ---
         function ghairiKuedit() {
             document.getElementById('registrationForm').reset();
             document.getElementById('editGuestId').value = "";
