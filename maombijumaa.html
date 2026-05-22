@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maombi ya Ijumaa - 22 May 2026</title>
+    <style>
+        /* Mitindo Mikuu ya Ukurasa */
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333333;
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 0;
+        }
+        
+        /* Sehemu ya Juu (Header) */
+        .header {
+            background-color: #0D47A1; /* Bluu Kuu */
+            color: #FFFFFF;
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom: 5px solid #FF6F00; /* Orange kama lafudhi */
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .header p {
+            margin: 10px 0 0 0;
+            font-size: 1.2em;
+            font-style: italic;
+            opacity: 0.9;
+        }
+        
+        /* Container Kuu ya Maudhui */
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 30px;
+            background-color: #FFFFFF;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border-radius: 8px;
+        }
+        
+        /* Vichwa vya Sehemu Kuu (Part Titles) */
+        .part-title {
+            background-color: #f0f4f8;
+            color: #0D47A1;
+            padding: 12px 20px;
+            margin-top: 40px;
+            margin-bottom: 25px;
+            border-left: 5px solid #FF6F00;
+            font-size: 1.4em;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        /* Kontena Maalum ya Kila Ombi (Prayer Card Container) */
+        .prayer-card {
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+        }
+
+        /* Taarifa Ndogo za Maombi (Meta info) */
+        .prayer-meta {
+            font-size: 0.9em;
+            color: #718096;
+            margin-bottom: 15px;
+            border-bottom: 1px dashed #e2e8f0;
+            padding-bottom: 10px;
+        }
+        .prayer-meta span {
+            margin-right: 15px;
+        }
+        
+        /* Vichwa vya Kila Ombi (Subheadings) */
+        .section-title {
+            color: #0D47A1;
+            margin-top: 0;
+            margin-bottom: 5px;
+            font-size: 1.4em;
+            font-weight: bold;
+        }
+        
+        /* Lebo za Kategoria (Badges) */
+        .category-badge {
+            background-color: #FF6F00; /* Orange */
+            color: #FFFFFF;
+            padding: 4px 10px;
+            font-size: 0.8em;
+            font-weight: bold;
+            border-radius: 4px;
+            display: inline-block;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        /* Sanduku la Mistari ya Biblia (Verse Boxes) */
+        .verse-box {
+            background-color: #fafafa;
+            border: 1px solid #e2e8f0;
+            border-left: 4px solid #0D47A1;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 0 6px 6px 0;
+        }
+        .verse-box strong {
+            color: #0D47A1;
+            display: block;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+        .verse-box p {
+            margin: 0;
+            font-style: italic;
+            font-size: 1.05em;
+            color: #4a5568;
+        }
+
+        /* Sanduku la Mafundisho na Maelezo (Teaching Boxes) */
+        .teaching-box {
+            background-color: #fffaf0;
+            border: 1px solid #feebc8;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 6px;
+        }
+        .teaching-box h4 {
+            margin-top: 0;
+            color: #dd6b20;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .teaching-box p {
+            margin: 0 0 10px 0;
+            color: #2d3748;
+            font-size: 1em;
+        }
+        .teaching-box ul {
+            margin: 0;
+            padding-left: 20px;
+            color: #2d3748;
+        }
+        .teaching-box li {
+            margin-bottom: 5px;
+        }
+
+        /* Mitindo ya Link/Kitufe (Button/Link Styles) */
+        .prayer-link {
+            display: inline-block;
+            background-color: #0D47A1;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            font-weight: bold;
+            transition: background-color 0.2s;
+            margin-top: 5px;
+        }
+        .prayer-link:hover {
+            background-color: #0a3880;
+        }
+        
+        /* Maelezo ya Utangulizi */
+        .intro-text {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            color: #4a5568;
+        }
+        
+        /* Jedwali la Tafsiri (Translations Table) */
+        .translation-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+        .translation-table th {
+            background-color: #0D47A1;
+            color: #FFFFFF;
+            text-align: left;
+            padding: 15px;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.95em;
+            border: 1px solid #0D47A1;
+        }
+        .translation-table td {
+            padding: 15px;
+            border: 1px solid #e2e8f0;
+            vertical-align: top;
+            font-size: 1em;
+        }
+        .translation-table tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+        .translation-table td strong {
+            color: #0D47A1;
+        }
+        
+        /* Sehemu ya Chini (Footer) - MPYA NA YA KISASA */
+        .footer {
+            background-color: #0D47A1;
+            color: #FFFFFF;
+            padding: 50px 20px 20px 20px;
+            margin-top: 60px;
+            border-top: 6px solid #FF6F00;
+            font-family: Arial, sans-serif;
+        }
+        .footer-content {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 30px;
+        }
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+        }
+        .footer-section h2 {
+            color: #FF6F00;
+            font-size: 1.2em;
+            margin-top: 0;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 2px solid rgba(255, 111, 0, 0.3);
+            padding-bottom: 8px;
+            display: inline-block;
+        }
+        .footer-section p {
+            margin: 0 0 15px 0;
+            line-height: 1.7;
+            color: #e2e8f0;
+            font-size: 0.95em;
+        }
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        .footer-links a {
+            color: #e2e8f0;
+            text-decoration: none;
+            font-size: 0.95em;
+            transition: color 0.2s, padding-left 0.2s;
+        }
+        .footer-links a:hover {
+            color: #FF6F00;
+            padding-left: 5px;
+        }
+        .footer-bottom {
+            max-width: 1100px;
+            margin: 40px auto 0 auto;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            font-size: 0.85em;
+            color: #cbd5e1;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>Maombi ya Ijumaa</h1>
+        <p>22 May 2026 | Pastor Aloyce</p>
+    </div>
+
+    <div class="container">
+
+        <div class="part-title">SEHEMU YA KWANZA: KUOMBEA WANAUME</div>
+        
+        <div class="prayer-card">
+            <h3 class="section-title">1. Kuwa na Hekima</h3>
+            <div class="prayer-meta">
+                <span><strong>Tarehe:</strong> 22 May 2026</span>
+                <span><strong>Msimamizi:</strong> Pastor Aloyce</span>
+            </div>
+            <span class="category-badge">KUOMBEA WANAUME</span>
+            
+            <div class="verse-box">
+                <strong>Yakobo 1:5</strong>
+                <p>"Lakini mtu wa kwenu akipungukiwa na hekima, na aombe kwa Mungu, awapaye wote kwa ukarimu, wala hakemei; naye atapewa."</p>
+            </div>
+            
+            <div class="teaching-box">
+                <h4>Maelezo & Mafundisho ya Kiroho:</h4>
+                <p>Wanaume wamewekwa kama viongozi katika familia na jamii, na uongozi thabiti unahitaji Hekima ya Kiungu badala ya akili za kibinadamu. Hekima inamsaidia mwanamume kufanya maamuzi sahihi ya kifedha, kulea watoto, na kulinda amani ya ndoa yake.</p>
+                <ul>
+                    <li><strong>Mwelekeo wa Ombi:</strong> Mwombee mwanamume awe na jicho la rohoni la kuona mambo kabla hayajatokea and kupata ufumbuzi wa changamoto ngumu za kifamilia na kikazi bila kufanya maamuzi ya kukurupuka.</li>
+                </ul>
+            </div>
+            <a href="#" class="prayer-link">Soma Zaidi Kuhusu Hekima</a>
+        </div>
+
+        <div class="prayer-card">
+            <h3 class="section-title">2. Kuwa na Ujasiri na Nguvu</h3>
+            <div class="prayer-meta">
+                <span><strong>Tarehe:</strong> 22 May 2026</span>
+                <span><strong>Msimamizi:</strong> Pastor Aloyce</span>
+            </div>
+            <span class="category-badge">KUOMBEA WANAUME</span>
+            
+            <div class="verse-box">
+                <strong>Yoshua 1:9</strong>
+                <p>"Je! Si mimi naliyekuamuru? Uwe hodari na moyo wa ushujaa; usihofu wala usifadhaike; kwa kuwa Bwana, Mungu wako, yu pamoja nawe kila uendako."</p>
+            </div>
+            
+            <div class="teaching-box">
+                <h4>Maelezo & Mafundisho ya Kiroho:</h4>
+                <p>Dunia ya sasa imejaa changamoto na shinikizo (pressures) nyingi zinazoweza kumfanya mwanamume akate tamaa au kuona haitoshi. Neno la Mungu kwa Yoshua linatukumbusha kuwa ujasiri sio kutokuwa na hofu, bali ni kusonga mbele kwa sababu una uhakika wa uwepo wa Mungu.</p>
+                <ul>
+                    <li><strong>Mwelekeo wa Ombi:</strong> Vunja kila roho ya kukata tamaa, hofu ya kushindwa (fear of failure), na mifadhaiko ya kiuchumi. Omba roho ya ushujaa na stamina ya kusimama imara katikati ya dhoruba za maisha.</li>
+                </ul>
+            </div>
+            <a href="#" class="prayer-link">Fungua Masomo ya Ujasiri</a>
+        </div>
+
+        <div class="prayer-card">
+            <h3 class="section-title">3. Kufunuliwa Hazina</h3>
+            <div class="prayer-meta">
+                <span><strong>Tarehe:</strong> 22 May 2026</span>
+                <span><strong>Msimamizi:</strong> Pastor Aloyce</span>
+            </div>
+            <span class="category-badge">KUOMBEA WANAUME</span>
+            
+            <div class="verse-box">
+                <strong>Kumbukumbu la Torati 28:12</strong>
+                <p>"Bwana atakufunulia hazina yake nzuri, nayo ni mbingu, kwa kutoa mvua ya nchi yako kwa wakati wake, na kwa kubariki kazi yote ya mkono wako..."</p>
+            </div>
+            
+            <div class="teaching-box">
+                <h4>Maelezo & Mafundisho ya Kiroho:</h4>
+                <p>Mungu anajidhihirisha kama Mtoaji na anataka kazi za mikono ya wanaume zizae matunda (productivity). Ahadi hii inahusu kufunguliwa kwa milango ya kiuchumi, kupata mawazo ya kibunifu ya kibiashara, na kuwa na "mvua" (baraka) ya kiungu juu ya kila juhudi wanazofanya.</p>
+                <ul>
+                    <li><strong>Mwelekeo wa Ombi:</strong> Omba ili baraka ionekane kwenye kazi au biashara zao. Kataa roho ya kufanya kazi kwa nguvu nyingi lakini bila mafanikio (barrenness/scarcity), na uombe milango ya fursa za kimkakati ifunguke.</li>
+                </ul>
+            </div>
+            <a href="#" class="prayer-link">Angalia Ahadi za Uchumi</a>
+        </div>
+
+        <div class="prayer-card">
+            <h3 class="section-title">4. Moyo wa Kupenda (Upendo)</h3>
+            <div class="prayer-meta">
+                <span><strong>Tarehe:</strong> 22 May 2026</span>
+                <span><strong>Msimamizi:</strong> Pastor Aloyce</span>
+            </div>
+            <span class="category-badge">KUOMBEA WANAUME</span>
+            
+            <div class="verse-box">
+                <strong>Waefeso 5:25</strong>
+                <p>"Enyi waume, wapendeni wake zenu, kama Kristo naye alivyolipenda Kanisa, akajitoa kwa ajili yake."</p>
+            </div>
+            
+            <div class="teaching-box">
+                <h4>Maelezo & Mafundisho ya Kiroho:</h4>
+                <p>Kipimo cha upendo wa mwanamume kwa mkewe kinalinganishwa na jinsi Kristo alivyolifia Kanisa—huu ni upendo wa kujitoa mhanga (Agape), usio na ubinafsi wala masharti. Mwanamume mwenye upendo anajenga mazingira salama ya kihisia, kiroho, na kimwili kwa familia yake kumsikiliza na kumheshimu.</p>
+                <ul>
+                    <li><strong>Mwelekeo wa Ombi:</strong> Omba dhidi ya roho ya ukali, ubabe usio na tija, au kutelekeza majukumu ya kihisia. Mungu aweke moyo wa huruma, unyenyekevu, na upendo wa kweli ndani ya mioyo yao.</li>
+                </ul>
+            </div>
+            <a href="#" class="prayer-link">Soma Kuhusu Familia</a>
+        </div>
+
+
+        <div class="part-title">SEHEMU YA PILI: KUJIOMBEA</div>
+        
+        <div class="prayer-card">
+            <h3 class="section-title">Kujazwa Ustadi Ndani ya Moyo</h3>
+            <div class="prayer-meta">
+                <span><strong>Tarehe:</strong> 22 May 2026</span>
+                <span><strong>Msimamizi:</strong> Pastor Aloyce</span>
+            </div>
+            <span class="category-badge">KUJIOMBEA</span>
+            
+            <p class="intro-text">Hapa chini kuna ulinganisho wa tafsiri mbalimbali za andiko la <strong>Kutoka 35:35</strong> kwa ajili ya kutafakari na kujiombea ustadi, ubunifu na kazi za mikono:</p>
+
+            <table class="translation-table">
+                <thead>
+                    <tr>
+                        <th style="width: 25%;">Tafsiri / Toleo</th>
+                        <th style="width: 75%;">Andiko</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>SUV</strong><br><small>(Swahili Union Version)</small></td>
+                        <td>"Amewajaza ustadi wa moyoni, ili wafanye kazi kila namna, ya mhunzi, na ya fundi stadi, na ya mtarizi, katika rangi ya samawi, na ya zambarau, na ya nyekundu, na ya kitani safi, na ya mfumaji, hata ya wale wafanyao kazi yo yote, na ya wale wabunifu wa kazi za ustadi."</td>
+                    </tr>
+                    <tr>
+                        <td><strong>BHN</strong><br><small>(Habari Njema)</small></td>
+                        <td>"Mwenyezi-Mungu amewajaza ujuzi mwingi wa kufanya kazi za kila aina: kazi za kuchonga, kudarizi kwa nyuzi za rangi ya samawi, zambarau na nyekundu na kwa kitani safi; na kazi za kufuma. Wana uwezo wa kufanya kazi yoyote and kubuni michoro ya kila namna."</td>
+                    </tr>
+                    <tr>
+                        <td><strong>NLT</strong><br><small>(New Living Translation)</small></td>
+                        <td>"The Lord has given them special skills as engravers, designers, embroiderers in blue, purple, and scarlet yarn on fine linen cloth, and weavers. They are excellent craftsmen and designers."</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="teaching-box" style="border-left: 4px solid #FF6F00;">
+                <h4>Ufafanuzi wa Kiroho & Kujiombea (Kutoka 35:35):</h4>
+                <p>Andiko hili linaonyesha kuwa <strong>ustadi, usanii, teknolojia, na ubunifu</strong> sio mambo ya kidunia tu—ni karama na roho inayotoka kwa Mungu mwenyewe ("Amewajaza ustadi wa moyoni"). Unapojiombea kwa kutumia kifungu hiki, unaruhusu Roho Mtakatifu kuamsha uwezo mkubwa wa kiakili na kiufundi uliopo ndani yako.</p>
+                <ul>
+                    <li><strong>Siri ya Maneno Matatu (NLT):</strong> 
+                        <br>1. <em>Special Skills:</em> Uwezo wa kipekee unaokutofautisha na wengine sokoni.
+                        <br>2. <em>Designers:</em> Uwezo wa kubuni mifumo, michoro, na mikakati mipya.
+                        <br>3. <em>Excellent Craftsmen:</em> Kufanya kazi kwa viwango vya juu sana vya ubora na weledi (excellence).
+                    </li>
+                    <li><strong>Ombi Lako:</strong> *"Ee Bwana, nifungulie akili yangu. Nijaze roho ya ustadi na ubunifu kama uliyoweka ndani ya Bezaleli na Oholiabu. Kazi za mikono yangu, mipango yangu, na miradi yangu ikajae uzuri, ubora wa kimataifa, na kibali mbele ya watu wote."*</li>
+                </ul>
+            </div>
+            <a href="#" class="prayer-link">Amsha Karama Yako</a>
+        </div>
+
+        <div class="prayer-card" style="border: 2px solid #0D47A1; background-color: #f0f4f8;">
+            <h3 class="section-title">MAOMBI YANAYOFUATA</h3>
+            <div class="prayer-meta">
+                <span><strong>Msimamizi wa maombi:</strong> Pastor Aloyce</span>
+            </div>
+            <p>Bofya hapa chini ili kuelekea kwenye maombi yanayofuata:</p>
+            <a href="#" class="prayer-link" style="background-color: #FF6F00;">Nenda Kwenye maombi yanayofuata &rarr;</a>
+        </div>
+
+    </div> 
+
+    <div class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h2>Kuhusu Huduma</h2>
+                <p>Maombi ya Ijumaa ni ibada maalum ya kila wiki kwa ajili ya kujenga misingi thabiti ya kiroho, kuombea familia, kuamsha karama za kiungu, na kuinua viwango vya ustadi na ubunifu katika kazi za mikono yetu.</p>
+            </div>
+            <div class="footer-section">
+                <h2>Viungo vya Haraka</h2>
+                <ul class="footer-links">
+                    <li><a href="#">&rsaquo; Nyumbani</a></li>
+                    <li><a href="#">&rsaquo; Masomo Yaliyopita</a></li>
+                    <li><a href="#">&rsaquo; Ratiba ya Maombi</a></li>
+                    <li><a href="#">&rsaquo; Tuma Ombi la Sala</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h2>Mawasiliano</h2>
+                <p><strong>Mchungaji:</strong> Pastor Aloyce</p>
+                <p><strong>Barua Pepe:</strong> pastoraloyce@gmail.com</p>
+                <p><strong>Muda:</strong> Kila Ijumaa, Saa 11:00 Jioni</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 Pastor Aloyce. Maombi ya Ijumaa. Haki zote zimehifadhiwa.
+        </div>
+    </div>
+
+</body>
+</html>
